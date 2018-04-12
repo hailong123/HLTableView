@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HLBaseTableViewCellDelegate.h"
-
 @class HLCellDataAdapter;
 @class HLBaseTableViewCell;
 
@@ -21,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                           indexPath:(NSIndexPath *)indexPath;
 
 - (HLBaseTableViewCell *)dequeueReuseableCellAndLoadDataWithAdapter:(HLCellDataAdapter *)adapter
-                                                           delegate:(nullable id<HLBaseTableViewCellDelegate>)delegate
+                                                           delegate:(nullable id<NSObject>)delegate
                                                           indexPath:(NSIndexPath *)indexPath;
 
 - (CGFloat)cellHeightWithAdapter:(HLCellDataAdapter *)adapter;

@@ -8,6 +8,9 @@
 
 #import "HLBaseTableViewController.h"
 
+#import "HLBaseTableViewCell.h"
+#import "UITableView+HLBaseTableViewCell.h"
+
 @interface HLBaseTableViewController ()
 
 @end
@@ -32,13 +35,30 @@
 }
 
 - (void)baseTableViewUI {
-    
-    
+    self.tableView.frame = self.view.frame;
 }
 
 #pragma mark - Public Method
+- (void)loadMoreData {}
+
+- (void)refreshData {}
+
+- (void)stopRefresh {}
 
 #pragma mark - Delegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.adapters.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    HLCellDataAdapter *cellAdapter = self.adapters[indexPath.row];
+    
+    HLBaseTableViewCell *baseTableViewCell = [tableView dequeueReuseableCellAndLoadDataWithAdapter:cellAdapter delegate:cellAdapter.cellDataAdapterDelegate indexPath:indexPath];
+    
+    return baseTableViewCell;
+}
 
 #pragma mark - Setter And Getter
 - (UITableView *)tableView {

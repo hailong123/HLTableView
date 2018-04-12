@@ -15,23 +15,26 @@
 
 - (HLBaseTableViewCell *)dequeueReuseableCellAndLoadDataWithAdapter:(HLCellDataAdapter *)adapter
                                                           indexPath:(NSIndexPath *)indexPath {
-    HLBaseTableViewCell *cell = [self dequeueReuseableCellAndLoadDataWithAdapter:adapter
-                                                                        delegate:nil
-                                                                       indexPath:indexPath];
+    HLBaseTableViewCell *cell = [self dequeueReusableCellWithIdentifier:adapter.cellReuseIdentifier forIndexPath:indexPath];
     
-    [cell loadContentWithAdapter:adapter indexPath:indexPath];
+    [cell loadContentWithAdapter:adapter
+                       indexPath:indexPath
+                        delegate:nil
+                       tableView:self];
     
     return cell;
 }
 
 - (HLBaseTableViewCell *)dequeueReuseableCellAndLoadDataWithAdapter:(HLCellDataAdapter *)adapter
-                                                           delegate:(id<HLBaseTableViewCellDelegate>)delegate indexPath:(NSIndexPath *)indexPath {
+                                                           delegate:(id<NSObject>)delegate
+                                                          indexPath:(NSIndexPath *)indexPath {
     
-    HLBaseTableViewCell *cell = [self dequeueReuseableCellAndLoadDataWithAdapter:adapter
-                                                                        delegate:delegate
-                                                                       indexPath:indexPath];
+    HLBaseTableViewCell *cell = [self dequeueReusableCellWithIdentifier:adapter.cellReuseIdentifier forIndexPath:indexPath];
     
-    [cell loadContentWithAdapter:adapter indexPath:indexPath];
+    [cell loadContentWithAdapter:adapter
+                       indexPath:indexPath
+                        delegate:delegate
+                       tableView:self];
     
     return cell;
 }

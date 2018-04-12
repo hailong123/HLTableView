@@ -63,24 +63,26 @@
 
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
                      indexPath:(NSIndexPath *)indexPath
-                      delegate:(id<HLBaseTableViewCellDelegate>)delegate {
+                      delegate:(id<NSObject>)delegate {
     
-    self.data            = cellDataAdapter.data;
-    self.indexPath       = indexPath;
-    self.cellDataAdapter = cellDataAdapter;
+    self.data             = cellDataAdapter.data;
+    self.indexPath        = indexPath;
+    self.cellDataAdapter  = cellDataAdapter;
+    self.baseCellDelegate = delegate;
     
     [self loadContent];
 }
 
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
                      indexPath:(NSIndexPath *)indexPath
-                      delegate:(id<HLBaseTableViewCellDelegate>)delegate
+                      delegate:(id<NSObject>)delegate
                      tableView:(UITableView *)tableView {
     
-    self.data            = cellDataAdapter.data;
-    self.indexPath       = indexPath;
-    self.tableView       = tableView;
-    self.cellDataAdapter = cellDataAdapter;
+    self.data             = cellDataAdapter.data;
+    self.indexPath        = indexPath;
+    self.tableView        = tableView;
+    self.cellDataAdapter  = cellDataAdapter;
+    self.baseCellDelegate = delegate;
     
     [self loadContent];
 }
@@ -116,7 +118,6 @@
 }
 
 + (HLCellDataAdapter *)dataAdapterWithData:(id)data cellHeight:(CGFloat)cellHeight type:(NSInteger)type {
-    
     return [[self class] dataAdapterWithCellReuseIdetifier:nil
                                                       data:data
                                                 cellHeight:cellHeight

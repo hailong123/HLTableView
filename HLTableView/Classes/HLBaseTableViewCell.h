@@ -9,14 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "HLCellDataAdapter.h"
-#import "HLBaseTableViewCellDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HLBaseTableViewCell : UITableViewCell
-<
-    HLBaseTableViewCellDelegate
->
 
 @property (nonatomic, weak) HLCellDataAdapter *cellDataAdapter;
 
@@ -104,11 +100,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
                      indexPath:(NSIndexPath *)indexPath
-                      delegate:(id<HLBaseTableViewCellDelegate>)delegate;
+                      delegate:(nullable id<NSObject>)delegate;
 
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
                      indexPath:(NSIndexPath *)indexPath
-                      delegate:(id<HLBaseTableViewCellDelegate>)delegate
+                      delegate:(nullable id<NSObject>)delegate
                      tableView:(UITableView *)tableView;
 
 #pragma mark Register cell with TableView

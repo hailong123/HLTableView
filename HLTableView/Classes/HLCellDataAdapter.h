@@ -27,18 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
+                                                         data:(nullable id)data
                                                    cellHeight:(CGFloat)cellHeight
                                                      cellType:(NSInteger)cellType;
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
+                                                         data:(nullable id)data
                                                    cellHeight:(CGFloat)cellHeight
                                                     cellWidth:(CGFloat)cellWidth
                                                      cellType:(NSInteger)cellType;
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
+                                                         data:(nullable id)data
                                                      cellType:(NSInteger)cellType;
 
 
