@@ -42,7 +42,7 @@
                                           CGRectGetMidY(self.contentView.frame), 200, 80);
     self.iconImageView.frame = CGRectMake(10, CGRectGetMidY(self.contentView.frame), 100, 100);
     
-    [self.iconImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIconTap)]];
+    [self.contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIconTap)]];
 }
 
 - (void)loadContent {
