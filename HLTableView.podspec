@@ -28,7 +28,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/771145867@qq.com/HLTableView.git', :tag => s.version.to_s }
   # s.source           = {:path => 'HLTableView'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
+  s.prefix_header_file = 'HLTableView/Classes/HLTableViewPrefixHeader.pch'
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'HLTableView/Classes/**/*'

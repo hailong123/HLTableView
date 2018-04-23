@@ -26,6 +26,8 @@
     [self baseTableViewConfig];
     
     [self baseTableViewUI];
+    
+    [self addRefresh];
 }
 
 #pragma mark - Private Method
@@ -41,12 +43,46 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)addRefresh {
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
+                                                                refreshingAction:@selector(refreshData)];
+    
+}
+
 #pragma mark - Public Method
-- (void)loadMoreData {}
+- (void)loadMoreData {
+    [[NSException exceptionWithName:@"方法调用异常"
+                             reason:@"此方法需子类重写"
+                           userInfo:nil] raise];
+}
 
-- (void)refreshData {}
+- (void)refreshData {
+    [[NSException exceptionWithName:@"方法调用异常"
+                             reason:@"此方法需子类重写"
+                           userInfo:nil] raise];
+}
 
-- (void)stopRefresh {}
+- (void)clickEvent {}
+
+- (void)stopRefresh {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
+}
+
+- (void)registEmptyDataState:(ZMCEmptyDataState)dataState
+                       title:(NSString *)title
+                  imageNamed:(NSString *)imageName {
+    
+    __weak typeof(self) weakSelf = self;
+    //无网络占位图
+    [self.tableView zmc_registerState:dataState
+                                title:title
+                      backgroundImage:[UIImage imageNamed:imageName]
+                   usingActionHandler:^(UIScrollView * _Nonnull sender) {
+                       [weakSelf clickEvent];
+                   }];
+}
 
 #pragma mark - Delegate
 
@@ -98,6 +134,12 @@
     }
     
     return _adapters;
+}
+
+- (void)setFooterRefresh:(BOOL)footerRefresh {
+    if (footerRefresh) {
+        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    } 
 }
 
 #pragma mark - Delloc

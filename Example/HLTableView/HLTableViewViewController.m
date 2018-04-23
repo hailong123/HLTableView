@@ -36,9 +36,9 @@
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
     self.demoModel = [[HLDemoModel alloc] init];
-    self.demoModel.nameStr  = @"测试测试";
-    self.demoModel.desStr   = @"描述";
-    self.demoModel.delegate = self;
+    self.demoModel.nameStr      = @"测试测试";
+    self.demoModel.desStr       = @"描述";
+    self.demoModel.cellDelegate = self;
     
     [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)]];
 
@@ -47,6 +47,21 @@
     [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)]];
 
     [self.tableView reloadData];
+}
+
+#pragma mark
+- (void)refreshData {
+    
+    NSLog(@"******** 刷新数据 ********");
+    
+    [self stopRefresh];
+}
+
+- (void)loadMoreData {
+    
+    NSLog(@"******** 刷新数据 ********");
+    
+    [self stopRefresh];
 }
 
 #pragma mark HLTwoDemoTableViewCellDelegate

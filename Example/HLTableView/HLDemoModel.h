@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HLDemoModel : NSObject
+#import "HLBaseCellModel.h"
+
+@interface HLDemoModel : HLBaseCellModel
 
 @property (nonatomic, copy) NSString *nameStr;
 @property (nonatomic, copy) NSString *desStr;
-@property (nonatomic, weak) id delegate;
 
 @end
