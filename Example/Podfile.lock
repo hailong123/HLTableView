@@ -1,15 +1,26 @@
 PODS:
-  - HLTableView (0.1.0)
+  - DZNEmptyDataSet (1.8.1)
+  - HLTableView (0.1.0):
+    - DZNEmptyDataSet
+    - MJRefresh
+  - MJRefresh (3.1.15.3)
 
 DEPENDENCIES:
   - HLTableView (from `../`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - DZNEmptyDataSet
+    - MJRefresh
 
 EXTERNAL SOURCES:
   HLTableView:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HLTableView: 4726bbb24a400087f30c91064f8965a86ec0ca8a
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  HLTableView: 7ddacc7c7be23f0c3933f249dead936957190ab2
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
 
 PODFILE CHECKSUM: f068e3cc36f89cfb30366600c7bc66437a9864c5
 

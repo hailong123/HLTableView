@@ -12,6 +12,6 @@
 
 @property (nonatomic, copy) NSString *nameStr;
 @property (nonatomic, copy) NSString *desStr;
-@property (nonatomic, week) id delegate;
+@property (nonatomic, weak) id delegate;
 
 @end
