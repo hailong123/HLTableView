@@ -43,17 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Userful Methord
 - (void)updateWithNewCellHeight:(CGFloat)height animated:(BOOL)animated;
 
-- (void)selectedEvent;
-
-- (void)delegateEvent;
-
 #pragma mark Constructor Method
 + (HLCellDataAdapter *)dataAdapterWithCellReuseIdetifier:(nullable NSString *)reuseIdetifier
                                                     data:(nullable id)data
                                               cellHeight:(CGFloat)cellHeight
                                                     type:(NSInteger)type;
 
-+ (HLCellDataAdapter *)dataAdapterWithCellReuseIdetifier:(NSString *)reuseIdetifier
++ (HLCellDataAdapter *)dataAdapterWithCellReuseIdetifier:(nullable NSString *)reuseIdetifier
                                                      data:(id)data
                                                cellHeight:(CGFloat)cellHeight
                                                 cellWidth:(CGFloat)cellWidth

@@ -31,14 +31,6 @@
     
 }
 
-- (void)selectedEvent {
-    
-}
-
-- (void)delegateEvent {
-    
-}
-
 + (CGFloat)cellHeightWithData:(id)data {
     return 0.f;
 }

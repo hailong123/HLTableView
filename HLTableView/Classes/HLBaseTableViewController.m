@@ -35,7 +35,10 @@
 }
 
 - (void)baseTableViewUI {
-    self.tableView.frame = self.view.frame;
+    
+    self.tableView.frame = self.view.bounds;
+    
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - Public Method
@@ -49,6 +52,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.adapters.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    HLCellDataAdapter *cellAdapter = self.adapters[indexPath.row];
+    
+    return cellAdapter.cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,6 +90,16 @@
     
     return _tableView;
 }
+
+- (NSMutableArray<HLCellDataAdapter *> *)adapters {
+    
+    if (!_adapters) {
+        _adapters = [NSMutableArray array];
+    }
+    
+    return _adapters;
+}
+
 #pragma mark - Delloc
 
 - (void)didReceiveMemoryWarning {

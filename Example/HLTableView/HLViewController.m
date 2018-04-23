@@ -8,16 +8,25 @@
 
 #import "HLViewController.h"
 
+#import "HLTableViewViewController.h"
+
 @interface HLViewController ()
 
 @end
 
 @implementation HLViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.view.backgroundColor = [UIColor redColor];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self presentViewController:[HLTableViewViewController new]
+                       animated:YES
+                     completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
