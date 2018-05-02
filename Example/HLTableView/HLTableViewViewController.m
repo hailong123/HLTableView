@@ -35,6 +35,8 @@
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
+    [self registEmptyDataState:ZMCEmptyDataNoDataText title:@"无网数据" imageNamed:@""];
+    
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
     self.demoModel.desStr       = @"描述";

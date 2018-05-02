@@ -11,13 +11,11 @@
 @implementation HLCellDataAdapter
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
-                                                     cellType:(NSInteger)cellType {
+                                                         data:(id)data {
     
     HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
     
     cellDataAdapter.data                = data;
-    cellDataAdapter.cellType            = cellType;
     cellDataAdapter.cellReuseIdentifier = reuseIdentifiers;
     
     return cellDataAdapter;
@@ -25,30 +23,11 @@
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
                                                          data:(id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                                     cellType:(NSInteger)cellType {
+                                                   cellHeight:(CGFloat)cellHeight {
     
     HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
     
     cellDataAdapter.data                = data;
-    cellDataAdapter.cellType            = cellType;
-    cellDataAdapter.cellHeight          = cellHeight;
-    cellDataAdapter.cellReuseIdentifier = reuseIdentifiers;
-    
-    return cellDataAdapter;
-}
-
-+ (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                                    cellWidth:(CGFloat)cellWidth
-                                                     cellType:(NSInteger)cellType {
-    
-    HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
-    
-    cellDataAdapter.data                = data;
-    cellDataAdapter.cellType            = cellType;
-    cellDataAdapter.cellWidth           = cellWidth;
     cellDataAdapter.cellHeight          = cellHeight;
     cellDataAdapter.cellReuseIdentifier = reuseIdentifiers;
     

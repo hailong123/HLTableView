@@ -21,30 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
-@property (nonatomic, assign) CGFloat cellWidth;
-
-@property (nonatomic, assign) NSInteger cellType;
-
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
                                                          data:(nullable id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                                     cellType:(NSInteger)cellType;
+                                                   cellHeight:(CGFloat)cellHeight;
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(nullable id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                                    cellWidth:(CGFloat)cellWidth
-                                                     cellType:(NSInteger)cellType;
-
-+ (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(nullable id)data
-                                                     cellType:(NSInteger)cellType;
-
-
-@property (nonatomic, weak) UITableView *tableView;
-
-@property (nonatomic, weak) UICollectionView *collectionView;
+                                                         data:(nullable id)data;
 
 @property (nonatomic, weak) NSIndexPath *indexPath;
 

@@ -48,8 +48,8 @@
 - (void)loadContent {
     
     HLDemoModel *demoModel = self.data;
-    self.baseCellDelegate = demoModel.cellDelegate;
-    self.nameLabel.text = demoModel.nameStr;
+    self.baseCellDelegate  = demoModel.cellDelegate;
+    self.nameLabel.text    = demoModel.nameStr;
 }
 
 - (void)clickIconTap {

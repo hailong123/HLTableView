@@ -25,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) UITableView *tableView;
 
-@property (nonatomic, weak) UIViewController *viewController;
-
 //当前的cell是否正在显示
 @property (nonatomic, assign) BOOL display;
 
@@ -44,60 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateWithNewCellHeight:(CGFloat)height animated:(BOOL)animated;
 
 #pragma mark Constructor Method
-+ (HLCellDataAdapter *)dataAdapterWithCellReuseIdetifier:(nullable NSString *)reuseIdetifier
-                                                    data:(nullable id)data
-                                              cellHeight:(CGFloat)cellHeight
-                                                    type:(NSInteger)type;
 
-+ (HLCellDataAdapter *)dataAdapterWithCellReuseIdetifier:(nullable NSString *)reuseIdetifier
-                                                     data:(id)data
-                                               cellHeight:(CGFloat)cellHeight
-                                                cellWidth:(CGFloat)cellWidth
-                                                     type:(NSInteger)type;
-
-+ (HLCellDataAdapter *)dataAdapterWithData:(id)data
-                                cellHeight:(CGFloat)cellHeight
-                                      type:(NSInteger)type;
-
-
-+ (HLCellDataAdapter *)dataAdapterWithData:(id)data
++ (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
                                 cellHeight:(CGFloat)cellHeight;
 
-+ (HLCellDataAdapter *)dataAdapterWithData:(id)data;
++ (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data;
 
-+ (HLCellDataAdapter *)dataAdapterWithCellHeight:(CGFloat)cellHeight;
 
 //必须实现 cellHeightWithData 方法来获取cell的高度
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithCellReuseIdetifier:(NSString *)reuseIdetifier
-                                                                    data:(id)data
-                                                                    type:(NSInteger)type;
-
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(id)data type:(NSInteger)type;
-
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(id)data;
-
-+ (HLCellDataAdapter *)fiexdHeightTypeDataAdapter;
-
-+ (HLCellDataAdapter *)layoutTypeAdapterWithCellReuseIdentifier:(NSString *)reuseIdetifier
-                                                           data:(id)data
-                                                           type:(NSInteger)type;
-
-+ (HLCellDataAdapter *)layoutTypeAdapterWithData:(id)data type:(NSInteger)type;
-
-+ (HLCellDataAdapter *)layoutTypeAdapterWithData:(id)data;
-
-+ (HLCellDataAdapter *)layoutTypeAdapter;
++ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data;
 
 #pragma mark Load Content
-- (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
-                     indexPath:(NSIndexPath *)indexPath;
-
-- (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter;
-
-- (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
-                     indexPath:(NSIndexPath *)indexPath
-                      delegate:(nullable id<NSObject>)delegate;
-
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
                      indexPath:(NSIndexPath *)indexPath
                       delegate:(nullable id<NSObject>)delegate
