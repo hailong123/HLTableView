@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "HLBaseCellModel.h"
-
-@interface HLDemoModel : HLBaseCellModel
+@interface HLDemoModel : NSObject
 
 @property (nonatomic, copy) NSString *nameStr;
 @property (nonatomic, copy) NSString *desStr;

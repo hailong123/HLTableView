@@ -38,17 +38,17 @@
     
     self.backgroundColor     = [UIColor greenColor];
     
-    self.nameLabel.frame     = CGRectMake(CGRectGetMaxX(self.iconImageView.frame) + 15,
-                                          CGRectGetMidY(self.contentView.frame), 200, 80);
-    self.iconImageView.frame = CGRectMake(10, CGRectGetMidY(self.contentView.frame), 100, 100);
+    self.nameLabel.frame     = CGRectMake(30 + 10, 10, 200, 30);
+    
+    self.iconImageView.frame = CGRectMake(10, 10, 20, 20);
     
     [self.contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIconTap)]];
 }
 
 - (void)loadContent {
     
-    HLDemoModel *demoModel = self.data;
-    self.baseCellDelegate  = demoModel.cellDelegate;
+    HLDemoModel *demoModel = self.cellDataAdapter.data;
+    self.baseCellDelegate  = self.cellDataAdapter.cellDataAdapterDelegate;
     self.nameLabel.text    = demoModel.nameStr;
 }
 

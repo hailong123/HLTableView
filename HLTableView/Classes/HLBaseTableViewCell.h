@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) HLCellDataAdapter *cellDataAdapter;
 
-//此参数接受子视图自定义的事件代理
 @property (nonatomic, weak) id baseCellDelegate;
 
 @property (nonatomic, weak) id data;
@@ -44,13 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Constructor Method
 
 + (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
-                                cellHeight:(CGFloat)cellHeight;
+                                cellHeight:(CGFloat)cellHeight
+                           adapterDelegate:(id<NSObject>)adapterDelegate;
 
-+ (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data;
++ (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
+                           adapterDelegate:(id<NSObject>)adapterDelegate;
 
 
 //必须实现 cellHeightWithData 方法来获取cell的高度
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data;
++ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data
+                                          adapterDelegate:(id<NSObject>)adapterDelegate;
 
 #pragma mark Load Content
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter

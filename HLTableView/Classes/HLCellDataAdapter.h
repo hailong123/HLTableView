@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *cellReuseIdentifier;
 
-@property (nonatomic, weak) id <NSObject> cellDataAdapterDelegate;
+@property (nonatomic, weak) id cellDataAdapterDelegate;
 
 @property (nonatomic, strong, nullable) id data;
 
@@ -24,10 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
                                                          data:(nullable id)data
-                                                   cellHeight:(CGFloat)cellHeight;
+                                                   cellHeight:(CGFloat)cellHeight
+                                      cellDataAdapterDelegate:(id<NSObject>)adapterDelegate;
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(nullable id)data;
+                                                         data:(nullable id)data
+                                      cellDataAdapterDelegate:(id<NSObject>)adapterDelegate;
 
 @property (nonatomic, weak) NSIndexPath *indexPath;
 

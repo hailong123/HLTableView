@@ -267,6 +267,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "771145867@qq.com";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 255T83HNNK;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -513,6 +516,7 @@
 			baseConfigurationReference = ACCF88A4392CBAE09B0219AB /* Pods-HLTableView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 255T83HNNK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HLTableView/HLTableView-Prefix.pch";
 				INFOPLIST_FILE = "HLTableView/HLTableView-Info.plist";
@@ -528,6 +532,7 @@
 			baseConfigurationReference = B40DB333ABB90FD47DF92489 /* Pods-HLTableView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 255T83HNNK;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HLTableView/HLTableView-Prefix.pch";
 				INFOPLIST_FILE = "HLTableView/HLTableView-Info.plist";

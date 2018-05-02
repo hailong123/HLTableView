@@ -63,7 +63,7 @@
                            userInfo:nil] raise];
 }
 
-- (void)clickEvent {}
+- (void)clickEmptyEvent {}
 
 - (void)stopRefresh {
     [self.tableView.mj_header endRefreshing];
@@ -80,7 +80,7 @@
                                 title:title
                       backgroundImage:[UIImage imageNamed:imageName]
                    usingActionHandler:^(UIScrollView * _Nonnull sender) {
-                       [weakSelf clickEvent];
+                       [weakSelf clickEmptyEvent];
                    }];
 }
 

@@ -20,15 +20,9 @@
 }
 
 - (void)setupCell {
-    @throw [NSException exceptionWithName:@"方法错误"
-                                   reason:@"方法调用错误,此方法必须子类重载"
-                                 userInfo:nil];
 }
 
 - (void)buildView {
-    @throw [NSException exceptionWithName:@"方法错误"
-                                   reason:@"方法调用错误,此方法必须子类重载"
-                                 userInfo:nil];
 }
 
 - (void)loadContent {
@@ -57,25 +51,27 @@
 
 #pragma mark 默认的配置
 
-+ (HLCellDataAdapter *)dataAdapterWithData:(id)data cellHeight:(CGFloat)cellHeight {
++ (HLCellDataAdapter *)dataAdapterWithData:(id)data
+                                cellHeight:(CGFloat)cellHeight
+                           adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
     return [HLCellDataAdapter cellDataAdapterWithCellReuseIdentifier:NSStringFromClass([self class])
                                                                 data:data
-                                                          cellHeight:cellHeight];
+                                                          cellHeight:cellHeight
+                                             cellDataAdapterDelegate:adapterDelegate];
 }
 
-+ (HLCellDataAdapter *)dataAdapterWithData:(id)data {
-    return [[self class] dataAdapterWithData:data cellHeight:0];
-}
-
-+ (HLCellDataAdapter *)dataAdapterWithCellHeight:(CGFloat)cellHeight {
-    return [[self class] dataAdapterWithData:nil cellHeight:cellHeight];
++ (HLCellDataAdapter *)dataAdapterWithData:(id)data
+                           adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
+    return [[self class] dataAdapterWithData:data cellHeight:0 adapterDelegate:adapterDelegate];
 }
 
 
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(id)data {
++ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(id)data
+                                          adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
     return [HLCellDataAdapter cellDataAdapterWithCellReuseIdentifier:NSStringFromClass([self class])
                                                                 data:data
-                                                          cellHeight:[[self class] cellHeightWithData:data]];
+                                                          cellHeight:[[self class] cellHeightWithData:data]
+                                             cellDataAdapterDelegate:adapterDelegate];
 }
 
 #pragma mark

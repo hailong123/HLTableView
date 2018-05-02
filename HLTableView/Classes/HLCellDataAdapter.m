@@ -11,25 +11,29 @@
 @implementation HLCellDataAdapter
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data {
+                                                         data:(id)data
+                                      cellDataAdapterDelegate:(nonnull id<NSObject>)adapterDelegate {
     
     HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
     
-    cellDataAdapter.data                = data;
-    cellDataAdapter.cellReuseIdentifier = reuseIdentifiers;
+    cellDataAdapter.data                    = data;
+    cellDataAdapter.cellReuseIdentifier     = reuseIdentifiers;
+    cellDataAdapter.cellDataAdapterDelegate = adapterDelegate;
     
     return cellDataAdapter;
 }
 
 + (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
                                                          data:(id)data
-                                                   cellHeight:(CGFloat)cellHeight {
+                                                   cellHeight:(CGFloat)cellHeight
+                                      cellDataAdapterDelegate:(nonnull id<NSObject>)adapterDelegate {
     
     HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
     
-    cellDataAdapter.data                = data;
-    cellDataAdapter.cellHeight          = cellHeight;
-    cellDataAdapter.cellReuseIdentifier = reuseIdentifiers;
+    cellDataAdapter.data                    = data;
+    cellDataAdapter.cellHeight              = cellHeight;
+    cellDataAdapter.cellReuseIdentifier     = reuseIdentifiers;
+    cellDataAdapter.cellDataAdapterDelegate = adapterDelegate;
     
     return cellDataAdapter;
 }

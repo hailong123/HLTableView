@@ -21,6 +21,8 @@
 >
 
 @property (nonatomic, strong) HLDemoModel *demoModel;
+@property (nonatomic, strong) HLDemoModel *demoModelTwo;
+@property (nonatomic, strong) HLDemoModel *demoModelThree;
 
 @end
 
@@ -35,20 +37,49 @@
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
-    [self registEmptyDataState:ZMCEmptyDataNoDataText title:@"无网数据" imageNamed:@""];
-    
+    [self registEmptyDataState:ZMCEmptyDataStateNoData title:@"无网数据" imageNamed:@"dd"];
+
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
     self.demoModel.desStr       = @"描述";
-    self.demoModel.cellDelegate = self;
     
-    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)]];
+    self.demoModelTwo = [[HLDemoModel alloc] init];
+    self.demoModelTwo.nameStr      = @"测试测试2";
+    self.demoModelTwo.desStr       = @"描述2";
+    
+    self.demoModelThree = [[HLDemoModel alloc] init];
+    self.demoModelThree.nameStr      = @"测试测试3";
+    self.demoModelThree.desStr       = @"描述3";
+    
+    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)
+                                                                     adapterDelegate:self]];
 
-    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel cellHeight:100]];
+    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
+                                                              cellHeight:100
+                                                         adapterDelegate:self]];
 
-    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)]];
+    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)
+                                                                     adapterDelegate:self]];
+    
+    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelTwo
+                                                              cellHeight:30
+                                                         adapterDelegate:self]];
+    
+    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)
+                                                                     adapterDelegate:self]];
+    
+    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelThree
+                                                              cellHeight:60
+                                                         adapterDelegate:self]];
 
     [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+//  [self.tableView zmc_emptyData];
 }
 
 #pragma mark
@@ -66,9 +97,18 @@
     [self stopRefresh];
 }
 
+- (void)clickEmptyEvent {
+    NSLog(@"*****点击空数据刷新*******");
+    [self.tableView zmc_emptyDataMnager];
+}
+
 #pragma mark HLTwoDemoTableViewCellDelegate
 - (void)twoDemoTableViewCell:(HLTwoDemoTableViewCell *)cell {
-    NSLog(@"*******************");
+    //更新cell高度
+//    cell.backgroundColor = [UIColor orangeColor];
+//    [cell updateWithNewCellHeight:200 animated:YES];
+    
+    NSLog(@"******点击事件*******");
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
