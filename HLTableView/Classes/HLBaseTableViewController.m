@@ -47,7 +47,6 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
                                                                 refreshingAction:@selector(refreshData)];
-    
 }
 
 #pragma mark - Public Method

@@ -37,6 +37,8 @@
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
+    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMy:) identifier:@"HLTwoDemoTableViewCell"];
+    
     [self registEmptyDataState:ZMCEmptyDataStateNoData title:@"无网数据" imageNamed:@"dd"];
 
     self.demoModel = [[HLDemoModel alloc] init];
@@ -58,28 +60,7 @@
                                                               cellHeight:100
                                                          adapterDelegate:self]];
 
-    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)
-                                                                     adapterDelegate:self]];
-    
-    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelTwo
-                                                              cellHeight:30
-                                                         adapterDelegate:self]];
-    
-    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(15)
-                                                                     adapterDelegate:self]];
-    
-    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelThree
-                                                              cellHeight:60
-                                                         adapterDelegate:self]];
-
     [self.tableView reloadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-//  [self.tableView zmc_emptyData];
 }
 
 #pragma mark
@@ -111,8 +92,10 @@
     NSLog(@"******点击事件*******");
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)clickMy:(HLCellDataAdapter *)cellDataAdapter {
+    
+    NSLog(@"**********");
+    
 }
 
 - (void)didReceiveMemoryWarning {

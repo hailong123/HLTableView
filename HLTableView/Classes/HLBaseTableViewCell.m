@@ -8,6 +8,8 @@
 
 #import "HLBaseTableViewCell.h"
 
+#import "HLActionManager.h"
+
 @implementation HLBaseTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -21,7 +23,6 @@
 
 - (void)setupCell {
 }
-
 - (void)buildView {
 }
 
@@ -74,6 +75,37 @@
                                              cellDataAdapterDelegate:adapterDelegate];
 }
 
+#pragma mark  基于 target **** action事件
++ (void)addTarget:(id)target action:(SEL)action identifier:(NSString *)identifier {
+    @synchronized(self) {
+        HLActionItem *actionItem = [[HLActionItem alloc] initWithActionItemWithTarget:target action:action];
+        
+        [[HLActionManager shareActionManager].actionDictionary setObject:actionItem forKey:identifier];
+    }
+}
+
+- (void)removeActionWithIdentifier:(NSString *)identifier {
+    
+    NSParameterAssert(identifier);
+    
+    @synchronized(self) {
+        [[HLActionManager shareActionManager].actionDictionary removeObjectForKey:identifier];
+    }
+}
+
+- (void)preformActionWithIdentifier:(NSString *)identifier {
+    
+    NSParameterAssert(identifier);
+    
+    HLActionItem *actionItem = [HLActionManager shareActionManager].actionDictionary[identifier];
+    
+    if (actionItem.target && [actionItem.target respondsToSelector:actionItem.action]) {
+        [actionItem.target performSelector:actionItem.action
+                                withObject:self.cellDataAdapter
+                                afterDelay:0];
+    }
+}
+
 #pragma mark
 - (void)updateWithNewCellHeight:(CGFloat)height animated:(BOOL)animated {
     
@@ -101,5 +133,7 @@
 + (void)registerToTableView:(UITableView *)tableView {
     [tableView registerClass:[self class] forCellReuseIdentifier:NSStringFromClass([self class])];
 }
+
+#pragma mark Setter And Getter
 
 @end
