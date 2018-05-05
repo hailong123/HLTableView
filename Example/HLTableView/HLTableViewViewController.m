@@ -38,9 +38,12 @@
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
     [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMy:) identifier:@"HLTwoDemoTableViewCell"];
+    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMyOne:) identifier:@"111"];
     
     [self registEmptyDataState:ZMCEmptyDataStateNoData title:@"无网数据" imageNamed:@"dd"];
 
+    
+    
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
     self.demoModel.desStr       = @"描述";
@@ -55,7 +58,7 @@
     
     [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)
                                                                      adapterDelegate:self]];
-
+    
     [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
                                                               cellHeight:100
                                                          adapterDelegate:self]];
@@ -93,9 +96,11 @@
 }
 
 - (void)clickMy:(HLCellDataAdapter *)cellDataAdapter {
-    
     NSLog(@"**********");
-    
+}
+
+- (void)clickMyOne:(HLCellDataAdapter *)cellData {
+    NSLog(@"******00000000000****");
 }
 
 - (void)didReceiveMemoryWarning {

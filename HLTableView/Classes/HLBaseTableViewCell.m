@@ -77,20 +77,18 @@
 
 #pragma mark  基于 target **** action事件
 + (void)addTarget:(id)target action:(SEL)action identifier:(NSString *)identifier {
-    @synchronized(self) {
-        HLActionItem *actionItem = [[HLActionItem alloc] initWithActionItemWithTarget:target action:action];
-        
-        [[HLActionManager shareActionManager].actionDictionary setObject:actionItem forKey:identifier];
-    }
+    
+    HLActionItem *actionItem = [[HLActionItem alloc] initWithActionItemWithTarget:target action:action];
+    
+    [[HLActionManager shareActionManager].actionDictionary setObject:actionItem forKey:identifier];
 }
 
 - (void)removeActionWithIdentifier:(NSString *)identifier {
     
     NSParameterAssert(identifier);
     
-    @synchronized(self) {
-        [[HLActionManager shareActionManager].actionDictionary removeObjectForKey:identifier];
-    }
+    [[HLActionManager shareActionManager].actionDictionary removeObjectForKey:identifier];
+    
 }
 
 - (void)preformActionWithIdentifier:(NSString *)identifier {

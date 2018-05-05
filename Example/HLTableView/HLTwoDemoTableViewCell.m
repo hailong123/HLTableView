@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *iconImageView;
 
+@property (nonatomic, strong) UIButton *btn;
+
 @end
 
 @implementation HLTwoDemoTableViewCell {
@@ -31,7 +33,8 @@
     [self.contentView addSubview:self.iconImageView];
     //昵称
     [self.contentView addSubview:self.nameLabel];
-    
+    //按钮
+    [self.contentView addSubview:self.btn];
 }
 
 - (void)buildView {
@@ -41,6 +44,8 @@
     self.nameLabel.frame     = CGRectMake(30 + 10, 10, 200, 30);
     
     self.iconImageView.frame = CGRectMake(10, 10, 20, 20);
+    
+    self.btn.frame = CGRectMake(80, 10, 20, 20);
     
     [self.contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIconTap)]];
 }
@@ -57,6 +62,10 @@
 //        [self.baseCellDelegate twoDemoTableViewCell:self];
 //    }
     [self preformActionWithIdentifier:NSStringFromClass([self class])];
+}
+
+- (void)clickBtn:(UIButton *)bt {
+    [self preformActionWithIdentifier:@"111"];
 }
 
 #pragma mark - Setter And Getter
@@ -86,6 +95,18 @@
     }
     
     return _iconImageView;
+}
+
+- (UIButton *)btn {
+    if (!_btn) {
+        _btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btn.backgroundColor = [UIColor yellowColor];
+        [_btn addTarget:self
+                 action:@selector(clickBtn:)
+       forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _btn;
 }
 
 @end
