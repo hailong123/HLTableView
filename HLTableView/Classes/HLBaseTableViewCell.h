@@ -61,7 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeActionWithIdentifier:(NSString *)identifier;
 
-- (void)preformActionWithIdentifier:(NSString *)identifier;
+- (void)preformActionWithIdentifier:(NSString *)identifier
+                           baseCell:(HLBaseTableViewCell *)cell;
 
 #pragma mark Load Content
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter

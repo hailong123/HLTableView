@@ -12,6 +12,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import <MJRefresh/MJRefresh.h>
+#import "NSObject+MutableTarget.h"
 #import "UIScrollView+ZMCScrollViewState.h"
 
 #endif /* HLTableViewPrefixHeader_pch */

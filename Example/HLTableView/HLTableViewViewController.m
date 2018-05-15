@@ -37,12 +37,10 @@
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
-    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMy:) identifier:@"HLTwoDemoTableViewCell"];
-    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMyOne:) identifier:@"111"];
+    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMy:twoCell:) identifier:@"HLTwoDemoTableViewCell"];
+    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMyOne:twoCell:) identifier:@"111"];
     
     [self registEmptyDataState:ZMCEmptyDataStateNoData title:@"无网数据" imageNamed:@"dd"];
-
-    
     
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
@@ -88,18 +86,20 @@
 
 #pragma mark HLTwoDemoTableViewCellDelegate
 - (void)twoDemoTableViewCell:(HLTwoDemoTableViewCell *)cell {
+    
     //更新cell高度
-//    cell.backgroundColor = [UIColor orangeColor];
-//    [cell updateWithNewCellHeight:200 animated:YES];
+    
+    //cell.backgroundColor = [UIColor orangeColor];
+    //[cell updateWithNewCellHeight:200 animated:YES];
     
     NSLog(@"******点击事件*******");
 }
 
-- (void)clickMy:(HLCellDataAdapter *)cellDataAdapter {
+- (void)clickMy:(HLCellDataAdapter *)cellDataAdapter twoCell:(HLTwoDemoTableViewCell *)cell {
     NSLog(@"**********");
 }
 
-- (void)clickMyOne:(HLCellDataAdapter *)cellData {
+- (void)clickMyOne:(HLCellDataAdapter *)cellData twoCell:(HLTwoDemoTableViewCell *)cell {
     NSLog(@"******00000000000****");
 }
 

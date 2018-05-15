@@ -91,7 +91,8 @@
     
 }
 
-- (void)preformActionWithIdentifier:(NSString *)identifier {
+- (void)preformActionWithIdentifier:(NSString *)identifier
+                           baseCell:(nonnull HLBaseTableViewCell *)cell {
     
     NSParameterAssert(identifier);
     
@@ -100,7 +101,7 @@
     if (actionItem.target && [actionItem.target respondsToSelector:actionItem.action]) {
         [actionItem.target performSelector:actionItem.action
                                 withObject:self.cellDataAdapter
-                                afterDelay:0];
+                                withObject:cell];
     }
 }
 
