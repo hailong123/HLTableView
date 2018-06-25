@@ -58,14 +58,13 @@
 }
 
 - (void)clickIconTap {
-//    if (_hasDes.HLTwoDemoTableViewCellDelegate) {
-//        [self.baseCellDelegate twoDemoTableViewCell:self];
-//    }
-    [self preformActionWithIdentifier:NSStringFromClass([self class]) baseCell:self];
+    if (_hasDes.HLTwoDemoTableViewCellDelegate) {
+        [self.baseCellDelegate twoDemoTableViewCell:self];
+    }
 }
 
 - (void)clickBtn:(UIButton *)bt {
-    [self preformActionWithIdentifier:@"111" baseCell:self];
+   
 }
 
 #pragma mark - Setter And Getter

@@ -8,8 +8,6 @@
 
 #import "HLBaseTableViewCell.h"
 
-#import "HLActionManager.h"
-
 @implementation HLBaseTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -73,36 +71,6 @@
                                                                 data:data
                                                           cellHeight:[[self class] cellHeightWithData:data]
                                              cellDataAdapterDelegate:adapterDelegate];
-}
-
-#pragma mark  基于 target **** action事件
-+ (void)addTarget:(id)target action:(SEL)action identifier:(NSString *)identifier {
-    
-    HLActionItem *actionItem = [[HLActionItem alloc] initWithActionItemWithTarget:target action:action];
-    
-    [[HLActionManager shareActionManager].actionDictionary setObject:actionItem forKey:identifier];
-}
-
-- (void)removeActionWithIdentifier:(NSString *)identifier {
-    
-    NSParameterAssert(identifier);
-    
-    [[HLActionManager shareActionManager].actionDictionary removeObjectForKey:identifier];
-    
-}
-
-- (void)preformActionWithIdentifier:(NSString *)identifier
-                           baseCell:(nonnull HLBaseTableViewCell *)cell {
-    
-    NSParameterAssert(identifier);
-    
-    HLActionItem *actionItem = [HLActionManager shareActionManager].actionDictionary[identifier];
-    
-    if (actionItem.target && [actionItem.target respondsToSelector:actionItem.action]) {
-        [actionItem.target performSelector:actionItem.action
-                                withObject:self.cellDataAdapter
-                                withObject:cell];
-    }
 }
 
 #pragma mark

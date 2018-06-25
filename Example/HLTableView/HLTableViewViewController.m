@@ -37,10 +37,9 @@
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
-    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMy:twoCell:) identifier:@"HLTwoDemoTableViewCell"];
-    [HLTwoDemoTableViewCell addTarget:self action:@selector(clickMyOne:twoCell:) identifier:@"111"];
-    
-    [self registEmptyDataState:ZMCEmptyDataStateNoData title:@"无网数据" imageNamed:@"dd"];
+    [self registEmptyDataState:ZMCEmptyDataStateNoData
+                         title:@"无网数据"
+                    imageNamed:@"dd"];
     
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
@@ -60,7 +59,7 @@
     [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
                                                               cellHeight:100
                                                          adapterDelegate:self]];
-
+    
     [self.tableView reloadData];
 }
 
@@ -82,6 +81,10 @@
 - (void)clickEmptyEvent {
     NSLog(@"*****点击空数据刷新*******");
     [self.tableView zmc_emptyDataMnager];
+    
+//    HLTableViewViewController *tableVC = [[HLTableViewViewController alloc] init];
+//
+//    [self presentViewController:tableVC animated:YES completion:nil];
 }
 
 #pragma mark HLTwoDemoTableViewCellDelegate

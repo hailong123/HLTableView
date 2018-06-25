@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HLActionItem.h"
 #import "HLCellDataAdapter.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,15 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 //必须实现 cellHeightWithData 方法来获取cell的高度
 + (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data
                                           adapterDelegate:(id<NSObject>)adapterDelegate;
-
-#pragma mark   基于 target **** action事件
-
-+ (void)addTarget:(id)target action:(SEL)action identifier:(NSString *)identifier;
-
-- (void)removeActionWithIdentifier:(NSString *)identifier;
-
-- (void)preformActionWithIdentifier:(NSString *)identifier
-                           baseCell:(HLBaseTableViewCell *)cell;
 
 #pragma mark Load Content
 - (void)loadContentWithAdapter:(HLCellDataAdapter *)cellDataAdapter
