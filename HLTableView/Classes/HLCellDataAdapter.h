@@ -30,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                          data:(nullable id)data
                                       cellDataAdapterDelegate:(id<NSObject>)adapterDelegate;
 
-@property (nonatomic, weak) NSIndexPath *indexPath;
-
 @end
 
 NS_ASSUME_NONNULL_END
