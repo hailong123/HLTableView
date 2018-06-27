@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "HLCellDataAdapter.h"
-#import "UIScrollView+ZMCScrollViewState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,17 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, getter=isFooterRefresh)  BOOL footerRefresh;
 
-- (void)registEmptyDataState:(ZMCEmptyDataState)dataState
-                       title:(NSString *)title
-                  imageNamed:(NSString *)imageName;
-
 - (void)refreshData;
 
 - (void)loadMoreData;
 
 - (void)stopRefresh;
-
-- (void)clickEmptyEvent;
 
 @end
 

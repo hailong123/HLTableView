@@ -62,25 +62,9 @@
                            userInfo:nil] raise];
 }
 
-- (void)clickEmptyEvent {}
-
 - (void)stopRefresh {
     [self.tableView.mj_header endRefreshing];
     [self.tableView.mj_footer endRefreshing];
-}
-
-- (void)registEmptyDataState:(ZMCEmptyDataState)dataState
-                       title:(NSString *)title
-                  imageNamed:(NSString *)imageName {
-    
-    __weak typeof(self) weakSelf = self;
-    //无网络占位图
-    [self.tableView zmc_registerState:dataState
-                                title:title
-                      backgroundImage:[UIImage imageNamed:imageName]
-                   usingActionHandler:^(UIScrollView * _Nonnull sender) {
-                       [weakSelf clickEmptyEvent];
-                   }];
 }
 
 #pragma mark - Delegate
