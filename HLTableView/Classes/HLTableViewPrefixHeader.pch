@@ -13,6 +13,5 @@
 
 #import <MJRefresh/MJRefresh.h>
 #import "NSObject+MutableTarget.h"
-#import "UIScrollView+ZMCScrollViewState.h"
 
 #endif /* HLTableViewPrefixHeader_pch */
