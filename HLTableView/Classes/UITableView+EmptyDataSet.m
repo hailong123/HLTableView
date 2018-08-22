@@ -11,16 +11,16 @@
 
 #import <objc/runtime.h>
 
-static const char * const kEmptyManagerKey      = "kEmptyManagerKey";
+static const char * const kEmptyManagerKey        = "kEmptyManagerKey";
 
-static const NSString *kImageNameKey            = @"kImageNameKey";
+static const NSString *kImageNameKey              = @"kImageNameKey";
 
-static const NSString *kCustomViewKey           = @"kCustomViewKey";
+static const NSString *kCustomViewKey             = @"kCustomViewKey";
 
-static const NSString *kLabelTitleKey           = @"kLabelTitleKey";
-static const NSString *kLabelDescriptionKey     = @"kLabelDescriptionKey";
+static const NSString *kLabelTitleKey             = @"kLabelTitleKey";
+static const NSString *kLabelDescriptionKey       = @"kLabelDescriptionKey";
 
-static const NSString *kBackgroundColorKey      = @"kBackgroundColorKey";
+static const NSString *kBackgroundColorKey        = @"kBackgroundColorKey";
 
 static const NSString *kButtonImageKey            = @"kButtonImageKey";
 static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey";
@@ -134,32 +134,16 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
 
 #pragma mark - Private Method
 
-- (void)configurationWithTitle:(NSString *)title description:(NSString *)des {
+- (void)configurationWithTitle:(NSString *)title
+               titleAttributes:(NSDictionary<NSAttributedStringKey,id> *)titleAttributes
+                   description:(NSString *)des
+                 desAttributes:(NSDictionary<NSAttributedStringKey,id> *)desAttributes {
     
-    NSAttributedString *desAttr   = [[NSAttributedString alloc] initWithString:des];
-    NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title];
+    NSAttributedString *desAttr   = [[NSAttributedString alloc] initWithString:des attributes:desAttributes];
+    NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title attributes:titleAttributes];
     
     [self.emptyManager.continuerDic setObject:[self convertNull:titleAttr] forKey:kLabelTitleKey];
     [self.emptyManager.continuerDic setObject:[self convertNull:desAttr]   forKey:kLabelDescriptionKey];
-}
-
-- (void)configurationWithButtonTitle:(NSString *)buttonTitle
-                         buttonImage:(UIImage *)buttonImage
-                     backgroundImage:(UIImage *)backgroundImage
-                        controlState:(UIControlState)state {
-    
-    NSParameterAssert(buttonImage);
-    NSParameterAssert(backgroundImage);
-    
-    self.emptyManager.state       = state;
-    NSAttributedString *desAttr   = [[NSAttributedString alloc] initWithString:buttonTitle];
-    
-    [self.emptyManager.continuerDic setObject:desAttr
-                                       forKey:@(self.emptyManager.state)];
-    [self.emptyManager.continuerDic setObject:buttonImage
-                                       forKey:kButtonImageKey];
-    [self.emptyManager.continuerDic setObject:backgroundImage
-                                       forKey:kButtonBackgroundImageKey];
 }
 
 - (void)configurationBackgroundColor:(UIColor *)backgroundColor {
@@ -169,14 +153,24 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
     [self.emptyManager.continuerDic setObject:backgroundColor  forKey:kBackgroundColorKey];
 }
 
-- (void)configurationWithImage:(UIImage *)image {
+- (void)configurationWithImage:(UIImage *)image
+                         title:(nullable NSString *)title
+                    attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes {
     
     NSParameterAssert(image);
     
-    [self.emptyManager.continuerDic setObject:[self convertNull:@" "]
-                                       forKey:@(self.emptyManager.state)];
+    NSAttributedString *attr;
     
+    if (title.length > 0) {
+        self.emptyManager.allowTouch = YES;
+        attr = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+    } else {
+        self.emptyManager.allowTouch = NO;
+        attr = [[NSAttributedString alloc] initWithString:@" "];
+    }
+
     [self.emptyManager.continuerDic setObject:image forKey:kImageNameKey];
+    [self.emptyManager.continuerDic setObject:attr  forKey:@(self.emptyManager.state)];
 }
 
 - (NSString *)convertNull:(id)object {

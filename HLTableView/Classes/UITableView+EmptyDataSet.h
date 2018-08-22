@@ -65,9 +65,13 @@ NS_ASSUME_NONNULL_BEGIN
 /*
     配置空图的图片
  
-    @param image
+    @param image       图片
+    @param title       文字 不显示文字则此字段传 nil
+    @param attributes  文字的样式
  */
-- (void)configurationWithImage:(UIImage *)image;
+- (void)configurationWithImage:(UIImage *)image
+                         title:(nullable NSString *)title
+                    attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes;
 
 
 /*
@@ -81,26 +85,16 @@ NS_ASSUME_NONNULL_BEGIN
 /*
     配置空图类型为文字类型  (不可点击)
  
-    @param title 标题
-    @param des   描述
+    @param title           标题
+    @param titleAttributes 标题样式
+    @param des             描述
+    @param desAttributes   描述样式
 
  */
 - (void)configurationWithTitle:(nullable NSString *)title
-                   description:(nullable NSString *)des;
-
-
-/*
-    配置空图为按钮类型 (可点击)
- 
-    @param buttonTitle      标题
-    @param buttonImage      图片
-    @param backgroundImage  背景图
-    @param state            类型状态
- */
-- (void)configurationWithButtonTitle:(nullable NSString *)buttonTitle
-                         buttonImage:(UIImage *)buttonImage
-                     backgroundImage:(UIImage *)backgroundImage
-                        controlState:(UIControlState)state;
+               titleAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)titleAttributes
+                   description:(nullable NSString *)des
+                 desAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)desAttributes;
 
 @end
 

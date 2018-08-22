@@ -36,12 +36,9 @@
 
 #pragma mark - Private Method
 - (void)baseTableViewConfig {
-    
     self.pageNo         = 1;
     self.footerRefresh  = YES;
     self.tableViewStyle = UITableViewStylePlain;
-
-    
 }
 
 - (void)baseTableViewUI {
