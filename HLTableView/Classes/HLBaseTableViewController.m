@@ -9,9 +9,13 @@
 #import "HLBaseTableViewController.h"
 
 #import "HLBaseTableViewCell.h"
+#import "UITableView+EmptyDataSet.h"
 #import "UITableView+HLBaseTableViewCell.h"
 
 @interface HLBaseTableViewController ()
+<
+    HLEmptyTableManagerDelegate
+>
 
 @end
 
@@ -32,8 +36,12 @@
 
 #pragma mark - Private Method
 - (void)baseTableViewConfig {
+    
     self.pageNo         = 1;
+    self.footerRefresh  = YES;
     self.tableViewStyle = UITableViewStylePlain;
+
+    
 }
 
 - (void)baseTableViewUI {
@@ -69,6 +77,15 @@
 
 #pragma mark - Delegate
 
+#pragma mark HLEmptyTableManagerDelegate
+- (void)touchEmptyTableManager:(HLEmptyTableManager *)emptyTableManager {
+    [[NSException exceptionWithName:@"方法调用异常"
+                             reason:@"此方法需子类重写"
+                           userInfo:nil] raise];
+}
+
+#pragma mark UITableViewDelegate
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.adapters.count;
 }
@@ -97,11 +114,14 @@
         _tableView.delegate   = self;
         _tableView.dataSource = self;
         
+        _tableView.emptyManager.emptyManagerDelegate = self;
+        
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
             self.automaticallyAdjustsScrollViewInsets = NO;
         }
+        
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _tableView.tableFooterView = [UIView new];

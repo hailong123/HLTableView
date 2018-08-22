@@ -15,6 +15,7 @@
 
 - (HLBaseTableViewCell *)dequeueReuseableCellAndLoadDataWithAdapter:(HLCellDataAdapter *)adapter
                                                           indexPath:(NSIndexPath *)indexPath {
+    
     HLBaseTableViewCell *cell = [self dequeueReusableCellWithIdentifier:adapter.cellReuseIdentifier forIndexPath:indexPath];
     
     [cell loadContentWithAdapter:adapter

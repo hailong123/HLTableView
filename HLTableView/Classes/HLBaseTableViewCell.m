@@ -19,10 +19,9 @@
     return self;
 }
 
-- (void)setupCell {
-}
-- (void)buildView {
-}
+- (void)setupCell {}
+
+- (void)buildView {}
 
 - (void)loadContent {
     @throw [NSException exceptionWithName:@"方法错误"
