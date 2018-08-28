@@ -33,9 +33,9 @@ Pod::Spec.new do |s|
 
   s.source_files = 'HLTableView/Classes/**/*'
   
-   s.resource_bundles = {
-     'HLTableView' => ['HLTableView/Assets/*.*']
-   }
+  #s.resource_bundles = {
+  #   'HLTableView' => ['HLTableView/Assets/*.*']
+  #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
