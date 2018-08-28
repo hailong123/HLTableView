@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'HLTableView'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of HLTableView.'
+  s.summary          = '这是一个简单的UITableView封装'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,13 +18,13 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+                    这是一个使用模型与UITableView进行关联的设计模式,进行对UITableView进行封装
                        DESC
 
   s.homepage         = 'https://github.com/hailong123/HLTableView'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '771145867@qq.com' => '771145867@qq.com' }
+  s.author           = { 'Sea' => '771145867@qq.com' }
   s.source           = { :git => 'https://github.com/hailong123/HLTableView.git', :tag => s.version.to_s }
   # s.source           = {:path => 'HLTableView'}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
@@ -33,9 +33,9 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'HLTableView/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'HLTableView' => ['HLTableView/Assets/*.png']
-  # }
+   s.resource_bundles = {
+     'HLTableView' => ['HLTableView/Assets/*.*']
+   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
