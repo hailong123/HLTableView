@@ -8,9 +8,13 @@
 
 #import "HLBaseTableViewController.h"
 
-#import "HLBaseTableViewCell.h"
 #import "UITableView+EmptyDataSet.h"
+
+#import "HLBaseTableViewCell.h"
 #import "UITableView+HLBaseTableViewCell.h"
+
+#import "HLCustomTableViewHeaderFooterView.h"
+#import "UITableViewHeaderFooterView+DataAdapter.h"
 
 @interface HLBaseTableViewController ()
 <
@@ -103,6 +107,66 @@
     return baseTableViewCell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if (self.headerFooterAdapter.count > 0) {
+        
+        HLCellHeaderAndFooterDataAdapter *dataAdpter = self.headerFooterAdapter[section];
+        
+        HLCustomTableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
+        headerView.data     = dataAdpter.data;
+        headerView.section  = section;
+        headerView.delegate = dataAdpter.dataAdapterDelegate;
+        [headerView loadContent];
+        
+        return headerView;
+    }
+    
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (self.headerFooterAdapter.count > 0) {
+        
+        HLCellHeaderAndFooterDataAdapter *dataAdpter = self.headerFooterAdapter[section];
+        
+        HLCustomTableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
+        footerView.data     = dataAdpter.data;
+        footerView.section  = section;
+        footerView.delegate = dataAdpter.dataAdapterDelegate;
+        [footerView loadContent];
+        
+        return footerView;
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if (self.headerFooterAdapter.count > 0) {
+    
+        HLCellHeaderAndFooterDataAdapter *dataAdapter = self.headerFooterAdapter[section];
+        
+        return dataAdapter.footerHeight;
+    }
+    
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (self.headerFooterAdapter.count > 0) {
+        
+        HLCellHeaderAndFooterDataAdapter *dataAdapter = self.headerFooterAdapter[section];
+        
+        return dataAdapter.headerHeight;
+    }
+    
+    return CGFLOAT_MIN;
+}
+
 #pragma mark - Setter And Getter
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -134,6 +198,15 @@
     }
     
     return _adapters;
+}
+
+- (NSMutableArray<HLCellHeaderAndFooterDataAdapter *> *)headerFooterAdapter {
+    
+    if (!_headerFooterAdapter) {
+        _headerFooterAdapter = [NSMutableArray array];
+    }
+    
+    return _headerFooterAdapter;
 }
 
 - (void)setFooterRefresh:(BOOL)footerRefresh {

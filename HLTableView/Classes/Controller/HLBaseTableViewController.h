@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 #import "HLCellDataAdapter.h"
+#import "HLCellHeaderAndFooterDataAdapter.h"
+
 #import "UITableView+EmptyDataSet.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -38,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @property (nonatomic, strong) NSMutableArray <HLCellDataAdapter *> *adapters;
+
+/*
+    组装头尾视图模型
+ */
+@property (nonatomic, strong) NSMutableArray <HLCellHeaderAndFooterDataAdapter *> *headerFooterAdapter;
 
 /*
     是否需要底部刷新空间 默认为YES
