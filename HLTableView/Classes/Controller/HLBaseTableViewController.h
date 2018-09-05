@@ -11,11 +11,13 @@
 #import "HLCellDataAdapter.h"
 #import "HLCellHeaderAndFooterDataAdapter.h"
 
+#import "HLTitleViewController.h"
+
 #import "UITableView+EmptyDataSet.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HLBaseTableViewController : UIViewController
+@interface HLBaseTableViewController : HLTitleViewController
 <
     UITableViewDelegate,
     UITableViewDataSource

@@ -42,4 +42,5 @@ Pod::Spec.new do |s|
   # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
+  s.dependency 'HLBaseClass'
 end

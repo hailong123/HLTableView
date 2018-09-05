@@ -47,7 +47,7 @@
 
 - (void)baseTableViewUI {
     
-    self.tableView.frame = self.view.bounds;
+    self.tableView.frame = self.contentView.frame;
     
     [self.view addSubview:self.tableView];
 }
