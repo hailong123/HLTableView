@@ -5,26 +5,62 @@
 //  Created by SeaDragon on 2018/8/21.
 //
 
-
-
 #import "UITableView+EmptyDataSet.h"
 
 #import <objc/runtime.h>
 
+#define NStringFormat(format,...) [NSString stringWithFormat:format,__VA_ARGS__]
+
 static const char * const kEmptyManagerKey        = "kEmptyManagerKey";
 
-static const NSString *kImageNameKey              = @"kImageNameKey";
+static NSString const *kImageNameKey              = @"kImageNameKey";
 
-static const NSString *kCustomViewKey             = @"kCustomViewKey";
+static NSString const *kCustomViewKey             = @"kCustomViewKey";
 
-static const NSString *kLabelTitleKey             = @"kLabelTitleKey";
-static const NSString *kLabelDescriptionKey       = @"kLabelDescriptionKey";
+static NSString const *kLabelTitleKey             = @"kLabelTitleKey";
+static NSString const *kLabelDescriptionKey       = @"kLabelDescriptionKey";
 
-static const NSString *kBackgroundColorKey        = @"kBackgroundColorKey";
+static NSString const *kBackgroundColorKey        = @"kBackgroundColorKey";
 
-static const NSString *kButtonImageKey            = @"kButtonImageKey";
-static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey";
+static NSString const *kButtonTitleKey            = @"kButtonTitleKey";
+static NSString const *kButtonImageKey            = @"kButtonImageKey";
+static NSString const *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey";
 
+static inline NSString const *fetchKeyFormKey(NSString const *key, HLEmptyTableManagerState state, NSString *className) {
+    
+    if (state == HLEmptyTableManagerStateDefault) {
+        return key;
+    }
+    
+    return NStringFormat(@"%@%lu%@",key,(unsigned long)state,className);
+}
+
+static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource) {
+    
+    NSString *tmp = NStringFormat(@"%@",dataSource);
+    
+    return [tmp componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":<"]][1];
+}
+
+@interface WeakObj : NSObject
+
+@property (nonatomic, readonly, weak) id data;
+
+- (instancetype)initWithWeakObj:(id)data;
+
+@end
+
+@implementation WeakObj
+
+- (instancetype)initWithWeakObj:(id)data {
+    if (self = [super init]) {
+        _data = data;
+    }
+    
+    return self;
+}
+
+@end
 
 @interface HLEmptyTableManager ()
 
@@ -37,23 +73,21 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
 @implementation HLEmptyTableManager
 
 #pragma mark - Private Method
+
 + (instancetype)shareInstance {
     static HLEmptyTableManager *_instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _instance = [[HLEmptyTableManager alloc] init];
+        _instance = [[self alloc] init];
     });
-    
     return _instance;
 }
 
 - (instancetype)init {
     
     if (self = [super init]) {
-        
         self.allowTouch  = YES;
         self.allowScroll = NO;
-
     }
     
     return self;
@@ -63,28 +97,28 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
 
 #pragma mark  UILabel
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    return self.continuerDic[kLabelTitleKey] ;
+    return self.continuerDic[fetchKeyFormKey(kLabelTitleKey, self.emptyState,fetchDataSourceKey(self.tableView.dataSource))] ;
 }
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
-    return self.continuerDic[kLabelDescriptionKey];
+    return self.continuerDic[fetchKeyFormKey(kLabelDescriptionKey, self.emptyState,fetchDataSourceKey(self.tableView.dataSource))];
 }
 
 #pragma mark  UIImage
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView {
-    return self.continuerDic[kImageNameKey];
+    return self.continuerDic[fetchKeyFormKey(kImageNameKey, self.emptyState,fetchDataSourceKey(self.tableView.dataSource))];
 }
 
 #pragma mark  UIButton
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView
                                           forState:(UIControlState)state {
-    return self.continuerDic[@(self.state)];
+    return self.continuerDic[fetchKeyFormKey(kButtonTitleKey, self.emptyState,fetchDataSourceKey(self.tableView.dataSource))];
 }
 
 #pragma mark  UIColor
 
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView {
-    return self.continuerDic[kBackgroundColorKey];
+    return self.continuerDic[fetchKeyFormKey(kBackgroundColorKey, self.emptyState,fetchDataSourceKey(self.tableView.dataSource))];
 }
 
 #pragma mark  Offset
@@ -116,6 +150,7 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
 - (NSMutableDictionary *)continuerDic {
     
     if (!_continuerDic) {
+        
         _continuerDic = [NSMutableDictionary dictionary];
     }
     
@@ -132,35 +167,52 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
     [self reloadEmptyDataSet];
 }
 
+- (HLEmptyTableManagerState)hl_emptyTableManagerState {
+    return self.emptyManager.emptyState;
+}
+
 #pragma mark - Private Method
 
 - (void)configurationWithTitle:(NSString *)title
                titleAttributes:(NSDictionary<NSAttributedStringKey,id> *)titleAttributes
                    description:(NSString *)des
-                 desAttributes:(NSDictionary<NSAttributedStringKey,id> *)desAttributes {
+                 desAttributes:(NSDictionary<NSAttributedStringKey,id> *)desAttributes
+                         state:(HLEmptyTableManagerState)emptyState {
+    
+    self.emptyManager.emptyState  = emptyState;
     
     NSAttributedString *desAttr   = [[NSAttributedString alloc] initWithString:des attributes:desAttributes];
     NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title attributes:titleAttributes];
     
-    [self.emptyManager.continuerDic setObject:[self convertNull:titleAttr] forKey:kLabelTitleKey];
-    [self.emptyManager.continuerDic setObject:[self convertNull:desAttr]   forKey:kLabelDescriptionKey];
+    [self.emptyManager.continuerDic setObject:[self convertNull:titleAttr]
+                                       forKey:fetchKeyFormKey(kLabelTitleKey, emptyState,fetchDataSourceKey(self.dataSource))];
+    
+    [self.emptyManager.continuerDic setObject:[self convertNull:desAttr]
+                                       forKey:fetchKeyFormKey(kLabelDescriptionKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
 
-- (void)configurationBackgroundColor:(UIColor *)backgroundColor {
+- (void)configurationBackgroundColor:(UIColor *)backgroundColor
+                               state:(HLEmptyTableManagerState)emptyState {
     
     NSParameterAssert(backgroundColor);
     
-    [self.emptyManager.continuerDic setObject:backgroundColor  forKey:kBackgroundColorKey];
+    self.emptyManager.emptyState  = emptyState;
+
+    [self.emptyManager.continuerDic setObject:backgroundColor
+                                       forKey:fetchKeyFormKey(kBackgroundColorKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
 
-- (void)configurationWithImage:(UIImage *)image
-                         title:(nullable NSString *)title
-                    attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes {
+- (void)configurationWithImageNamed:(NSString *)imageNamed
+                              title:(nullable NSString *)title
+                         attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes
+                              state:(HLEmptyTableManagerState)emptyState {
     
-    NSParameterAssert(image);
+    NSParameterAssert(imageNamed);
     
     NSAttributedString *attr;
     
+    self.emptyManager.emptyState  = emptyState;
+
     if (title.length > 0) {
         self.emptyManager.allowTouch = YES;
         attr = [[NSAttributedString alloc] initWithString:title attributes:attributes];
@@ -169,8 +221,10 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
         attr = [[NSAttributedString alloc] initWithString:@" "];
     }
 
-    [self.emptyManager.continuerDic setObject:image forKey:kImageNameKey];
-    [self.emptyManager.continuerDic setObject:attr  forKey:@(self.emptyManager.state)];
+    [self.emptyManager.continuerDic setObject:[self convertNull:[UIImage imageNamed:[self convertNull:imageNamed]]]
+                                       forKey:fetchKeyFormKey(kImageNameKey, emptyState,fetchDataSourceKey(self.dataSource))];
+    
+    [self.emptyManager.continuerDic setObject:attr forKey:fetchKeyFormKey(kButtonTitleKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
 
 - (NSString *)convertNull:(id)object {
@@ -189,24 +243,34 @@ static const NSString *kButtonBackgroundImageKey  = @"kButtonBackgroundImageKey"
 
 #pragma mark Setter And Getter
 - (void)setEmptyManager:(HLEmptyTableManager *)emptyManager {
-    objc_setAssociatedObject(self, &kEmptyManagerKey, emptyManager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &kEmptyManagerKey, [[WeakObj alloc] initWithWeakObj:emptyManager], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (HLEmptyTableManager *)weakEmptyManager {
+    
+    WeakObj *obj = objc_getAssociatedObject(self, &kEmptyManagerKey);
+    
+    return obj.data;
 }
 
 - (HLEmptyTableManager *)emptyManager {
     
-    HLEmptyTableManager *empty = objc_getAssociatedObject(self, &kEmptyManagerKey);
+   HLEmptyTableManager *empty = [self weakEmptyManager];
     
     if (!empty) {
 
-        empty           = [HLEmptyTableManager shareInstance];
-        empty.tableView = self;
-
+        empty = [HLEmptyTableManager shareInstance];
+        
         self.emptyManager         = empty;
-
+        
         self.emptyDataSetSource   = empty;
         self.emptyDataSetDelegate = empty;
     }
     
+    if (empty.tableView != self) {
+        empty.tableView = self;
+    }
+
     return empty;
 }
 

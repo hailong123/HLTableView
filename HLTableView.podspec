@@ -18,29 +18,23 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-                    这是一个使用模型与UITableView进行关联的设计模式,进行对UITableView进行封装
+                        这是一个使用模型与UITableView进行关联的设计模式,进行对UITableView进行封装
                        DESC
 
   s.homepage         = 'https://github.com/hailong123/HLTableView'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Sea' => '771145867@qq.com' }
   s.source           = { :git => 'https://github.com/hailong123/HLTableView.git', :tag => s.version.to_s }
-  # s.source           = {:path => 'HLTableView'}
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-  s.prefix_header_file = 'HLTableView/Classes/HLTableViewPrefixHeader.pch'
+
+  s.prefix_header_file    = 'HLTableView/Classes/HLTableViewPrefixHeader.pch'
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'HLTableView/Classes/**/*'
-  
-  #s.resource_bundles = {
-  #   'HLTableView' => ['HLTableView/Assets/*.*']
-  #}
+  s.source_files        = 'HLTableView/Classes/**/*'
+  s.public_header_files = 'HLTableView/Classes/**/*.h'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
   s.dependency 'HLBaseClass'
+  
 end

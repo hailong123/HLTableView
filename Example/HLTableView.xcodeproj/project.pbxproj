@@ -323,20 +323,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/HLBaseClass/HLBaseClass.framework",
 				"${BUILT_PRODUCTS_DIR}/HLTableView/HLTableView.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HLBaseClass.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HLTableView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		83319E2A254AF5DFD7D5D947 /* [CP] Check Pods Manifest.lock */ = {

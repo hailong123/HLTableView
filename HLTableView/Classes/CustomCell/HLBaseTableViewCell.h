@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  步骤2:进行视图的创建
  */
 
-- (void)buildView;
+- (void)layoutUI;
 
 /*
  步骤3:进行数据填充
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
                                 cellHeight:(CGFloat)cellHeight
-                           adapterDelegate:(id<NSObject>)adapterDelegate;
+                           adapterDelegate:(nullable id<NSObject>)adapterDelegate;
 
 /*
  @param data             填充的数据
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 + (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
-                           adapterDelegate:(id<NSObject>)adapterDelegate;
+                           adapterDelegate:(nullable id<NSObject>)adapterDelegate;
 
 
 
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  */
 + (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data
-                                          adapterDelegate:(id<NSObject>)adapterDelegate;
+                                          adapterDelegate:(nullable id<NSObject>)adapterDelegate;
 
 #pragma mark Load Content
 /*

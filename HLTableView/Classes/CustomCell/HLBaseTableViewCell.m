@@ -13,7 +13,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setupCell];
-        [self buildView];
+        [self layoutUI];
     }
     
     return self;
@@ -21,7 +21,7 @@
 
 - (void)setupCell {}
 
-- (void)buildView {}
+- (void)layoutUI {}
 
 - (void)loadContent {
     @throw [NSException exceptionWithName:@"方法错误"
@@ -51,7 +51,7 @@
 
 + (HLCellDataAdapter *)dataAdapterWithData:(id)data
                                 cellHeight:(CGFloat)cellHeight
-                           adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
+                           adapterDelegate:(id<NSObject>)adapterDelegate {
     return [HLCellDataAdapter cellDataAdapterWithCellReuseIdentifier:NSStringFromClass([self class])
                                                                 data:data
                                                           cellHeight:cellHeight
@@ -59,13 +59,13 @@
 }
 
 + (HLCellDataAdapter *)dataAdapterWithData:(id)data
-                           adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
+                           adapterDelegate:(id<NSObject>)adapterDelegate {
     return [[self class] dataAdapterWithData:data cellHeight:0 adapterDelegate:adapterDelegate];
 }
 
 
 + (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(id)data
-                                          adapterDelegate:(nonnull id<NSObject>)adapterDelegate {
+                                          adapterDelegate:(id<NSObject>)adapterDelegate {
     return [HLCellDataAdapter cellDataAdapterWithCellReuseIdentifier:NSStringFromClass([self class])
                                                                 data:data
                                                           cellHeight:[[self class] cellHeightWithData:data]

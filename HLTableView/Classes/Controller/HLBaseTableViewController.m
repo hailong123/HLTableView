@@ -8,19 +8,17 @@
 
 #import "HLBaseTableViewController.h"
 
-#import "UITableView+EmptyDataSet.h"
-
 #import "HLBaseTableViewCell.h"
 #import "UITableView+HLBaseTableViewCell.h"
 
 #import "HLCustomTableViewHeaderFooterView.h"
+#import "HLBaseTableViewController+EmptyProtocl.h"
 #import "UITableViewHeaderFooterView+DataAdapter.h"
 
 @interface HLBaseTableViewController ()
 <
     HLEmptyTableManagerDelegate
 >
-
 @end
 
 @implementation HLBaseTableViewController
@@ -33,7 +31,7 @@
     
     [self baseTableViewConfig];
     
-    [self baseTableViewUI];
+    [self prapareTableViewUI];
     
     [self addRefresh];
 }
@@ -45,11 +43,22 @@
     self.tableViewStyle = UITableViewStylePlain;
 }
 
-- (void)baseTableViewUI {
-    
-    self.tableView.frame = self.contentView.frame;
-    
+//子类如有不同,可重写此方法
+- (void)prapareTableViewUI {
+
     [self.view addSubview:self.tableView];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        if(@available(iOS 11.0, *)) {
+            make.top.mas_equalTo(self.view.safeAreaInsets.top);
+            make.bottom.mas_equalTo(self.view.safeAreaInsets.bottom);
+        } else {
+            make.top.equalTo(self.view);
+            make.bottom.equalTo(self.view);
+        }
+    }];
 }
 
 - (void)addRefresh {
@@ -58,16 +67,36 @@
                                                                 refreshingAction:@selector(refreshData)];
 }
 
+- (void)noNetworkConfig {
+    [self.tableView configurationWithImageNamed:[self normalImageNamedWithoutNetwork:YES]
+                                          title:[self normalDesWithoutNetwork:YES]
+                                     attributes:@{
+                                                  NSForegroundColorAttributeName:[self normalColorWithoutNetwork:YES],
+                                                  NSFontAttributeName:[self normalFontWithoutNetwork:YES]
+                                                  }
+                                          state:HLEmptyTableManagerStateNoNetwork];
+}
+
+- (void)noDataConfig {
+    [self.tableView configurationWithImageNamed:[self normalImageNamedWithoutNetwork:NO]
+                                          title:[self normalDesWithoutNetwork:NO]
+                                     attributes:@{
+                                                  NSForegroundColorAttributeName:[self normalColorWithoutNetwork:NO],
+                                                  NSFontAttributeName:[self normalFontWithoutNetwork:NO]
+                                                  }
+                                          state:HLEmptyTableManagerStateNoData];
+}
+
 #pragma mark - Public Method
 - (void)loadMoreData {
     [[NSException exceptionWithName:@"方法调用异常"
-                             reason:@"此方法需子类重写"
+                             reason:[NSString stringWithFormat:@"%@-此方法需子类重写",NSStringFromSelector(@selector(loadMoreData))]
                            userInfo:nil] raise];
 }
 
 - (void)refreshData {
     [[NSException exceptionWithName:@"方法调用异常"
-                             reason:@"此方法需子类重写"
+                             reason:[NSString stringWithFormat:@"%@-此方法需子类重写",NSStringFromSelector(@selector(refreshData))]
                            userInfo:nil] raise];
 }
 
@@ -81,7 +110,7 @@
 #pragma mark HLEmptyTableManagerDelegate
 - (void)touchEmptyTableManager:(HLEmptyTableManager *)emptyTableManager {
     [[NSException exceptionWithName:@"方法调用异常"
-                             reason:@"此方法需子类重写"
+                             reason:[NSString stringWithFormat:@"%@-此方法需子类重写",NSStringFromSelector(@selector(touchEmptyTableManager:))]
                            userInfo:nil] raise];
 }
 
@@ -175,8 +204,6 @@
         _tableView.delegate   = self;
         _tableView.dataSource = self;
         
-        _tableView.emptyManager.emptyManagerDelegate = self;
-        
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -186,6 +213,10 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _tableView.tableFooterView = [UIView new];
+    }
+    
+    if (_tableView.emptyManager.emptyManagerDelegate != self) {
+        _tableView.emptyManager.emptyManagerDelegate = self;
     }
     
     return _tableView;

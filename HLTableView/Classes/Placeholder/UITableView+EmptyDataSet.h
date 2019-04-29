@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class HLEmptyTableManager;
 
+typedef NS_ENUM(NSUInteger, HLEmptyTableManagerState) {
+    HLEmptyTableManagerStateDefault = 0, //默认状态,
+    HLEmptyTableManagerStateNoNetwork,   //无网状态
+    HLEmptyTableManagerStateNoData,      //无数据状态
+};
+
 @protocol HLEmptyTableManagerDelegate <NSObject>
 
 - (void)touchEmptyTableManager:(HLEmptyTableManager *)emptyTableManager;
@@ -25,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
     DZNEmptyDataSetDelegate
 >
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak) UITableView *tableView;
 
 /*
      设置此参数, 可设置控件之间的间隔
@@ -47,6 +53,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, getter=isAllowScroll) BOOL allowScroll;
 
+//空数据显示状态
+@property (nonatomic, assign) HLEmptyTableManagerState emptyState;
+
 @property (nonatomic, weak) id <HLEmptyTableManagerDelegate> emptyManagerDelegate;
 
 + (instancetype)shareInstance;
@@ -62,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)refreshEmptyData;
 
+//获取当前状态
+- (HLEmptyTableManagerState)hl_emptyTableManagerState;
+
 /*
     配置空图的图片
  
@@ -69,9 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
     @param title       文字 不显示文字则此字段传 nil
     @param attributes  文字的样式
  */
-- (void)configurationWithImage:(UIImage *)image
-                         title:(nullable NSString *)title
-                    attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes;
+- (void)configurationWithImageNamed:(NSString *)imageNamed
+                              title:(nullable NSString *)title
+                         attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes
+                              state:(HLEmptyTableManagerState)emptyState;
 
 
 /*
@@ -80,7 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
     @param backgroundColor  背景颜色
     @param imageTintColor   图片颜色
  */
-- (void)configurationBackgroundColor:(UIColor *)backgroundColor;
+- (void)configurationBackgroundColor:(UIColor *)backgroundColor
+                               state:(HLEmptyTableManagerState)emptyState;
 
 /*
     配置空图类型为文字类型  (不可点击)
@@ -94,7 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configurationWithTitle:(nullable NSString *)title
                titleAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)titleAttributes
                    description:(nullable NSString *)des
-                 desAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)desAttributes;
+                 desAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)desAttributes
+                         state:(HLEmptyTableManagerState)emptyState;
 
 @end
 

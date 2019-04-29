@@ -11,13 +11,25 @@
 #import "HLCellDataAdapter.h"
 #import "HLCellHeaderAndFooterDataAdapter.h"
 
-#import "HLTitleViewController.h"
-
 #import "UITableView+EmptyDataSet.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HLBaseTableViewController : HLTitleViewController
+@protocol BaseTableViewEmptyProtocl <NSObject>
+
+- (NSString *)noNetworkDes;
+- (UIFont *)noNetworkFontSize;
+- (UIColor *)noNetowrkDesColor;
+- (NSString *)noNetworkImageNamed;
+
+- (NSString *)noDataDes;
+- (UIFont *)noDataFontSize;
+- (UIColor *)noDatakDesColor;
+- (NSString *)noDataImageNamed;
+
+@end
+
+@interface HLBaseTableViewController : UIViewController
 <
     UITableViewDelegate,
     UITableViewDataSource
@@ -54,10 +66,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, getter=isFooterRefresh)  BOOL footerRefresh;
 
+@property (nonatomic, weak) id <BaseTableViewEmptyProtocl> emptySourceDelegate;
+
+#pragma mark SubClassConfig
+- (void)noDataConfig;
+- (void)noNetworkConfig;
+
+//重置刷新第一页
 - (void)refreshData;
 
+//加载更多
 - (void)loadMoreData;
 
+//停止刷新
 - (void)stopRefresh;
 
 @end
