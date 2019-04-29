@@ -42,13 +42,26 @@
             break;
         case AdapterHeightTypeDefault:
         {
-            cellHeaderAndFooterDataAdapter.footerHeight = 0;
-            cellHeaderAndFooterDataAdapter.headerHeight = 0;
+            cellHeaderAndFooterDataAdapter.footerHeight = CGFLOAT_MIN;
+            cellHeaderAndFooterDataAdapter.headerHeight = CGFLOAT_MIN;
         }
             break;
     }
     
     return cellHeaderAndFooterDataAdapter;
 }
+
++ (HLCellHeaderAndFooterDataAdapter *)cellHeaderAndFooterDataAdapterWithAdapterArray:(NSArray<HLCellHeaderAndFooterDataAdapter *> *)adapterArray {
+    
+    NSAssert([adapterArray isKindOfClass:[NSArray class]], @"必须为数组类型");
+    
+    HLCellHeaderAndFooterDataAdapter *cellDataAdapter = [[[self class] alloc] init];
+    cellDataAdapter.sectionArray                      = [NSMutableArray array];
+    
+    [cellDataAdapter.sectionArray addObjectsFromArray:adapterArray];
+    
+    return cellDataAdapter;
+}
+
 
 @end

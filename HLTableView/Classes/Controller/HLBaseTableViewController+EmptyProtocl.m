@@ -69,13 +69,13 @@ static CGFloat const kNoNetworkFontSize = 15;
             return [self.emptySourceDelegate noNetworkImageNamed];
         }
         
-        return @" ";
+        return @"default_pic";
     } else {
         if (self.emptySourceDelegate && [self.emptySourceDelegate respondsToSelector:@selector(noDataImageNamed)]) {
             return [self.emptySourceDelegate noDataImageNamed];
         }
         
-        return @" ";
+        return @"default_pic";
     }
 }
 @end

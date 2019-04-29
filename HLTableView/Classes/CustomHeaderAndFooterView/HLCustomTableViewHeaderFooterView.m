@@ -15,6 +15,7 @@
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         [self setupHeaderFooterView];
         [self buildSubview];
+        [self layoutUI];
     }
     
     return self;
@@ -29,9 +30,9 @@
 
 - (void)buildSubview {}
 
-- (void)loadContent {
-    [[NSException exceptionWithName:@"方法调用错误" reason:@"此方法需子类重写" userInfo:nil] raise];
-}
+- (void)layoutUI {};
+
+- (void)loadContent {}
 
 + (CGFloat)heightWithData:(nullable id)data {
     return 0.f;

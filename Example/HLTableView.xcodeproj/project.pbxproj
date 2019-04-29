@@ -25,9 +25,11 @@
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B2104BBDB4D78DA23A9EB91D /* Pods_HLTableView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6553525CCE07338F956EEDB /* Pods_HLTableView_Example.framework */; };
 		FE7FA3D82086E1F900C26F03 /* HLDemoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7FA3D72086E1F900C26F03 /* HLDemoModel.m */; };
+		FEB42B4C22410907001E5539 /* HLHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB42B4B22410907001E5539 /* HLHeaderView.m */; };
 		FEBAFAE3207F3ACE001B7D6A /* HLTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAFAE2207F3ACE001B7D6A /* HLTableViewViewController.m */; };
 		FEBAFAE6207F3C0B001B7D6A /* HLDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAFAE5207F3C0B001B7D6A /* HLDemoTableViewCell.m */; };
 		FEBAFAE9207F5A94001B7D6A /* HLTwoDemoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAFAE8207F5A94001B7D6A /* HLTwoDemoTableViewCell.m */; };
+		FEED4F7F2241F03000FFF707 /* HLFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEED4F7E2241F03000FFF707 /* HLFooterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,12 +75,16 @@
 		F6553525CCE07338F956EEDB /* Pods_HLTableView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HLTableView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7FA3D62086E1F900C26F03 /* HLDemoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLDemoModel.h; sourceTree = "<group>"; };
 		FE7FA3D72086E1F900C26F03 /* HLDemoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLDemoModel.m; sourceTree = "<group>"; };
+		FEB42B4A22410907001E5539 /* HLHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLHeaderView.h; sourceTree = "<group>"; };
+		FEB42B4B22410907001E5539 /* HLHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLHeaderView.m; sourceTree = "<group>"; };
 		FEBAFAE1207F3ACE001B7D6A /* HLTableViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTableViewViewController.h; sourceTree = "<group>"; };
 		FEBAFAE2207F3ACE001B7D6A /* HLTableViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTableViewViewController.m; sourceTree = "<group>"; };
 		FEBAFAE4207F3C0B001B7D6A /* HLDemoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLDemoTableViewCell.h; sourceTree = "<group>"; };
 		FEBAFAE5207F3C0B001B7D6A /* HLDemoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLDemoTableViewCell.m; sourceTree = "<group>"; };
 		FEBAFAE7207F5A94001B7D6A /* HLTwoDemoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLTwoDemoTableViewCell.h; sourceTree = "<group>"; };
 		FEBAFAE8207F5A94001B7D6A /* HLTwoDemoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLTwoDemoTableViewCell.m; sourceTree = "<group>"; };
+		FEED4F7D2241F03000FFF707 /* HLFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFooterView.h; sourceTree = "<group>"; };
+		FEED4F7E2241F03000FFF707 /* HLFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFooterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +163,10 @@
 				FEBAFAE2207F3ACE001B7D6A /* HLTableViewViewController.m */,
 				FE7FA3D62086E1F900C26F03 /* HLDemoModel.h */,
 				FE7FA3D72086E1F900C26F03 /* HLDemoModel.m */,
+				FEB42B4A22410907001E5539 /* HLHeaderView.h */,
+				FEB42B4B22410907001E5539 /* HLHeaderView.m */,
+				FEED4F7D2241F03000FFF707 /* HLFooterView.h */,
+				FEED4F7E2241F03000FFF707 /* HLFooterView.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -325,16 +335,16 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
-				"${BUILT_PRODUCTS_DIR}/HLBaseClass/HLBaseClass.framework",
 				"${BUILT_PRODUCTS_DIR}/HLTableView/HLTableView.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HLBaseClass.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HLTableView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -385,6 +395,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEBAFAE6207F3C0B001B7D6A /* HLDemoTableViewCell.m in Sources */,
+				FEED4F7F2241F03000FFF707 /* HLFooterView.m in Sources */,
+				FEB42B4C22410907001E5539 /* HLHeaderView.m in Sources */,
 				FEBAFAE9207F5A94001B7D6A /* HLTwoDemoTableViewCell.m in Sources */,
 				FEBAFAE3207F3ACE001B7D6A /* HLTableViewViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HLAppDelegate.m in Sources */,

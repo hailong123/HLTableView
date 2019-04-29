@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 //尾部高度
 @property (nonatomic, assign) CGFloat footerHeight;
 
+//是否是 多section 类型
+@property (nonatomic, strong) NSMutableArray<HLCellHeaderAndFooterDataAdapter*> *sectionArray;
+
 //索引
 @property (nonatomic, assign) NSInteger section;
 
@@ -55,6 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
                                                                             height:(CGFloat)height
                                                                               data:(nullable id)data
                                                                               type:(AdapterHeightType)type;
+
+/*
+ @param adapterArray 装在多section的CellDataAdapter模型
+ @return HLCellDataAdapter  cell绑定的模型
+ */
+
++ (HLCellHeaderAndFooterDataAdapter *)cellHeaderAndFooterDataAdapterWithAdapterArray:(NSArray <HLCellHeaderAndFooterDataAdapter *>*)adapterArray;
 
 @end
 

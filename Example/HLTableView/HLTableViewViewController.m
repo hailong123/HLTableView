@@ -10,14 +10,19 @@
 
 #import "HLCellDataAdapter.h"
 
+#import "HLHeaderView.h"
+#import "HLFooterView.h"
+
 #import "HLDemoTableViewCell.h"
 #import "HLTwoDemoTableViewCell.h"
+
+#import "UITableViewHeaderFooterView+DataAdapter.h"
 
 #import "HLDemoModel.h"
 
 @interface HLTableViewViewController ()
 <
-    HLTwoDemoTableViewCellDelegate
+HLTwoDemoTableViewCellDelegate
 >
 
 @property (nonatomic, strong) HLDemoModel *demoModel;
@@ -34,6 +39,9 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     
+    [HLHeaderView registerToTableView:self.tableView];
+    [HLFooterView registerToTableView:self.tableView];
+    
     [HLDemoTableViewCell registerToTableView:self.tableView];
     [HLTwoDemoTableViewCell registerToTableView:self.tableView];
     
@@ -49,14 +57,50 @@
     self.demoModelThree.nameStr      = @"测试测试3";
     self.demoModelThree.desStr       = @"描述3";
     
-    [self.adapters addObject:[HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)
-                                                                     adapterDelegate:self]];
+    //普通模式
+    HLCellDataAdapter *dataA = [HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)
+                                                                       adapterDelegate:self];
     
-    [self.adapters addObject:[HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
-                                                              cellHeight:100
-                                                         adapterDelegate:self]];
+    HLCellDataAdapter *dataB =  [HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
+                                                                 cellHeight:160
+                                                            adapterDelegate:self];
+    
+    //!!!!:多Section模式
+    HLCellHeaderAndFooterDataAdapter *hfAdapterA = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLHeaderView class]) delegate:self height:35 data:@"打点滴" type:AdapterHeightTypeHeader];
+    
+    HLCellHeaderAndFooterDataAdapter *hfAdapterB = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLFooterView class]) delegate:self height:35 data:@"打发打发打发斯蒂芬" type:AdapterHeightTypeFooter];
+    
+    HLCellDataAdapter *sectionAdapter1 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]
+                                                                              headerAdapter:hfAdapterA
+                                                                              footreAdapter:hfAdapterB];
+    HLCellDataAdapter *sectionAdapter2 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
+    HLCellDataAdapter *sectionAdapter3 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
+    HLCellDataAdapter *sectionAdapter4 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
+    HLCellDataAdapter *sectionAdapter5 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
+    HLCellDataAdapter *sectionAdapter6 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
+    HLCellDataAdapter *sectionAdapter7 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]
+                                                                              headerAdapter:nil
+                                                                              footreAdapter:hfAdapterB];
+    
+    //无section模式
+    [self.adapters addObject:dataA];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataA];
+    
+    //多section模式
+//    [self.adapters addObject:sectionAdapter1];
+//    [self.adapters addObject:sectionAdapter2];
+//    [self.adapters addObject:sectionAdapter3];
+//    [self.adapters addObject:sectionAdapter4];
+//    [self.adapters addObject:sectionAdapter5];
+//    [self.adapters addObject:sectionAdapter6];
+//    [self.adapters addObject:sectionAdapter7];
     
     [self.tableView reloadData];
+}
+
+- (void)configTableViewStyle {
+    self.tableViewStyle = UITableViewStylePlain;
 }
 
 #pragma mark
@@ -76,10 +120,10 @@
 
 - (void)clickEmptyEvent {
     NSLog(@"*****点击空数据刷新*******");
-
-//    HLTableViewViewController *tableVC = [[HLTableViewViewController alloc] init];
-//
-//    [self presentViewController:tableVC animated:YES completion:nil];
+    
+    //    HLTableViewViewController *tableVC = [[HLTableViewViewController alloc] init];
+    //
+    //    [self presentViewController:tableVC animated:YES completion:nil];
 }
 
 #pragma mark HLTwoDemoTableViewCellDelegate
@@ -107,13 +151,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

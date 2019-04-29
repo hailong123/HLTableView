@@ -29,18 +29,27 @@
     
     [super viewDidLoad];
     
+    [self configTableViewStyle];
+    
     [self baseTableViewConfig];
     
     [self prapareTableViewUI];
-    
-    [self addRefresh];
+
+    [self replaceRefresh];
 }
 
 #pragma mark - Private Method
 - (void)baseTableViewConfig {
     self.pageNo         = 1;
-    self.footerRefresh  = YES;
-    self.tableViewStyle = UITableViewStylePlain;
+}
+
+- (void)configTableViewStyle {
+    self.tableViewStyle = UITableViewStyleGrouped;
+}
+
+- (void)replaceRefresh {
+    self.footerRefresh       = YES;
+    self.normalHeaderRefresh = YES;
 }
 
 //子类如有不同,可重写此方法
@@ -59,12 +68,6 @@
             make.bottom.equalTo(self.view);
         }
     }];
-}
-
-- (void)addRefresh {
-    
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
-                                                                refreshingAction:@selector(refreshData)];
 }
 
 - (void)noNetworkConfig {
@@ -105,6 +108,58 @@
     [self.tableView.mj_footer endRefreshing];
 }
 
+#pragma mark - HLCellDataAdapter
+- (BOOL)hasMoreSection {
+    HLCellDataAdapter *adapter = self.adapters.firstObject;
+    return adapter.sectionArray.count > 0;
+}
+
+- (NSInteger)fetchCellDataAdapterCount {
+    return self.adapters.count;
+}
+
+- (NSInteger)fetchSubCellDataAdapterCountWithIndexPath:(NSInteger)section {
+    return self.adapters[section].sectionArray.count;
+}
+
+- (HLCellDataAdapter *)cellDataAdapterWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section < self.adapters.count) {
+        return self.adapters[indexPath.section].sectionArray[indexPath.row];
+    }
+    
+    return nil;
+}
+
+#pragma mark - HLCellHeaderAndFooterDataAdapter
+
+- (HLCellHeaderAndFooterDataAdapter *)cellFooterDataAdapterWithSection:(NSInteger)section {
+    if ([self hasMoreSection]) {
+        if (section < self.adapters[section]) {
+            return self.adapters[section].footerAdapter;
+        }
+    } else {
+        if (section < self.adapters.count) {
+            return self.adapters[section].footerAdapter;
+        }
+    }
+    
+    return nil;
+}
+
+- (HLCellHeaderAndFooterDataAdapter *)cellHeaderDataAdapterWithSection:(NSInteger)section {
+    if ([self hasMoreSection]) {
+        if (section < self.adapters[section]) {
+            return self.adapters[section].headerAdapter;
+        }
+    } else {
+        if (section < self.adapters.count) {
+            return self.adapters[section].headerAdapter;
+        }
+    }
+    
+    return nil;
+}
+
 #pragma mark - Delegate
 
 #pragma mark HLEmptyTableManagerDelegate
@@ -115,12 +170,31 @@
 }
 
 #pragma mark UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if ([self hasMoreSection]) {
+        return self.adapters.count;
+    }
+    
+    return 1;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self hasMoreSection]) {
+        return [self fetchSubCellDataAdapterCountWithIndexPath:section];
+    }
+    
     return self.adapters.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self hasMoreSection]) {
+        
+        HLCellDataAdapter *cellAdapter = [self cellDataAdapterWithIndexPath:indexPath];
+        
+        return cellAdapter.cellHeight;
+    }
     
     HLCellDataAdapter *cellAdapter = self.adapters[indexPath.row];
     
@@ -129,37 +203,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HLCellDataAdapter *cellAdapter = self.adapters[indexPath.row];
+    HLCellDataAdapter *cellAdapter = nil;
     
+    if ([self hasMoreSection]) {
+        cellAdapter = [self cellDataAdapterWithIndexPath:indexPath];
+    } else {
+        cellAdapter = self.adapters[indexPath.row];
+    }
+
     HLBaseTableViewCell *baseTableViewCell = [tableView dequeueReuseableCellAndLoadDataWithAdapter:cellAdapter delegate:cellAdapter.cellDataAdapterDelegate indexPath:indexPath];
+    
+    baseTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return baseTableViewCell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if (self.headerFooterAdapter.count > 0) {
-        
-        HLCellHeaderAndFooterDataAdapter *dataAdpter = self.headerFooterAdapter[section];
-        
-        HLCustomTableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
-        headerView.data     = dataAdpter.data;
-        headerView.section  = section;
-        headerView.delegate = dataAdpter.dataAdapterDelegate;
-        [headerView loadContent];
-        
-        return headerView;
-    }
+    HLCellHeaderAndFooterDataAdapter *dataAdpter = nil;
     
-    return nil;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    if (self.headerFooterAdapter.count > 0) {
+    if ([self hasMoreSection]) {
         
-        HLCellHeaderAndFooterDataAdapter *dataAdpter = self.headerFooterAdapter[section];
-        
+        dataAdpter = [self cellHeaderDataAdapterWithSection:section];
         HLCustomTableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
         footerView.data     = dataAdpter.data;
         footerView.section  = section;
@@ -167,6 +232,27 @@
         [footerView loadContent];
         
         return footerView;
+        
+    }
+
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    HLCellHeaderAndFooterDataAdapter *dataAdpter = nil;
+    
+    if ([self hasMoreSection]) {
+
+        dataAdpter = [self cellFooterDataAdapterWithSection:section];
+        HLCustomTableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
+        footerView.data     = dataAdpter.data;
+        footerView.section  = section;
+        footerView.delegate = dataAdpter.dataAdapterDelegate;
+        [footerView loadContent];
+
+        return footerView;
+        
     }
     
     return nil;
@@ -174,10 +260,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (self.headerFooterAdapter.count > 0) {
+    HLCellHeaderAndFooterDataAdapter *dataAdapter = nil;
     
-        HLCellHeaderAndFooterDataAdapter *dataAdapter = self.headerFooterAdapter[section];
+    if ([self hasMoreSection]) {
         
+        dataAdapter = [self cellFooterDataAdapterWithSection:section];
+
         return dataAdapter.footerHeight;
     }
     
@@ -186,9 +274,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    if (self.headerFooterAdapter.count > 0) {
+    HLCellHeaderAndFooterDataAdapter *dataAdapter = nil;
+    
+    if ([self hasMoreSection]) {
         
-        HLCellHeaderAndFooterDataAdapter *dataAdapter = self.headerFooterAdapter[section];
+        dataAdapter = [self cellHeaderDataAdapterWithSection:section];
         
         return dataAdapter.headerHeight;
     }
@@ -231,19 +321,24 @@
     return _adapters;
 }
 
-- (NSMutableArray<HLCellHeaderAndFooterDataAdapter *> *)headerFooterAdapter {
-    
-    if (!_headerFooterAdapter) {
-        _headerFooterAdapter = [NSMutableArray array];
-    }
-    
-    return _headerFooterAdapter;
-}
-
 - (void)setFooterRefresh:(BOOL)footerRefresh {
     if (footerRefresh) {
-        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    } 
+        if (!self.tableView.mj_footer) {
+            self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+        }
+    } else {
+        self.tableView.mj_footer = nil;
+    }
+}
+
+- (void)setNormalHeaderRefresh:(BOOL)normalHeaderRefresh {
+    if (normalHeaderRefresh) {
+        if (!self.tableView.mj_header) {
+            self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+        }
+    } else {
+        self.tableView.mj_header = nil;
+    }
 }
 
 #pragma mark - Delloc

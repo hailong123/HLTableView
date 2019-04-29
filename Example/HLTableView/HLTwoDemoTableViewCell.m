@@ -53,7 +53,7 @@
 - (void)loadContent {
     
     HLDemoModel *demoModel = self.cellDataAdapter.data;
-    self.baseCellDelegate  = self.cellDataAdapter.cellDataAdapterDelegate;
+//    self.baseCellDelegate  = self.cellDataAdapter.cellDataAdapterDelegate;
     self.nameLabel.text    = demoModel.nameStr;
 }
 

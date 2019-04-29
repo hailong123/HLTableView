@@ -38,4 +38,27 @@
     return cellDataAdapter;
 }
 
++ (HLCellDataAdapter *)cellDataAdapterWithAdapterArray:(NSArray <HLCellDataAdapter *>*)adapterArray {
+    
+    NSAssert([adapterArray isKindOfClass:[NSArray class]], @"必须为数组类型");
+    
+    HLCellDataAdapter *cellDataAdapter = [[[self class] alloc] init];
+    cellDataAdapter.sectionArray       = [NSMutableArray array];
+    
+    [cellDataAdapter.sectionArray addObjectsFromArray:adapterArray];
+    
+    return cellDataAdapter;
+}
+
++ (HLCellDataAdapter *)cellDataAdapterWithAdapterArray:(NSArray<HLCellDataAdapter *> *)adapterArray
+                                         headerAdapter:(HLCellHeaderAndFooterDataAdapter *)headerAdapter
+                                         footreAdapter:(HLCellHeaderAndFooterDataAdapter *)footerAdapter {
+    
+    HLCellDataAdapter *cellDataAdapter =  [HLCellDataAdapter cellDataAdapterWithAdapterArray:adapterArray];
+    cellDataAdapter.headerAdapter      = headerAdapter;
+    cellDataAdapter.footerAdapter      = footerAdapter;
+    
+    return cellDataAdapter;
+}
+
 @end

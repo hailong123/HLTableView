@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HLTableView'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = '这是一个简单的UITableView封装'
 
 # This description is used to generate tags and improve search results.
@@ -22,7 +22,8 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'https://github.com/hailong123/HLTableView'
-
+  s.static_framework = true;
+  
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Sea' => '771145867@qq.com' }
   s.source           = { :git => 'https://github.com/hailong123/HLTableView.git', :tag => s.version.to_s }
@@ -33,8 +34,10 @@ Pod::Spec.new do |s|
   s.source_files        = 'HLTableView/Classes/**/*'
   s.public_header_files = 'HLTableView/Classes/**/*.h'
 
+  s.resources           = 'HLTableView/Assets/*'
+
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
-  s.dependency 'HLBaseClass'
+  s.dependency 'Masonry'
   
 end

@@ -13,7 +13,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setupCell];
-        [self layoutUI];
+        [self buildView];
     }
     
     return self;
@@ -21,11 +21,11 @@
 
 - (void)setupCell {}
 
-- (void)layoutUI {}
+- (void)buildView {}
 
 - (void)loadContent {
     @throw [NSException exceptionWithName:@"方法错误"
-                                   reason:@"方法调用错误,此方法必须子类重载"
+                                   reason:[NSString stringWithFormat:@"方法调用错误,%@ 此方法必须子类重载",NSStringFromSelector(@selector(loadContent))]
                                  userInfo:nil];
 }
 

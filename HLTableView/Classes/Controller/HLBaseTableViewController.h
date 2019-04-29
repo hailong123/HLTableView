@@ -14,14 +14,15 @@
 #import "UITableView+EmptyDataSet.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+//设置无网络数据时的相关配置
 @protocol BaseTableViewEmptyProtocl <NSObject>
-
+//无网的数据配置
 - (NSString *)noNetworkDes;
 - (UIFont *)noNetworkFontSize;
 - (UIColor *)noNetowrkDesColor;
 - (NSString *)noNetworkImageNamed;
 
+//无数据的配置
 - (NSString *)noDataDes;
 - (UIFont *)noDataFontSize;
 - (UIColor *)noDatakDesColor;
@@ -55,11 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableArray <HLCellDataAdapter *> *adapters;
 
+    
 /*
-    组装头尾视图模型
+    是否需要默认的s刷新空间
  */
-@property (nonatomic, strong) NSMutableArray <HLCellHeaderAndFooterDataAdapter *> *headerFooterAdapter;
-
+    
+@property (nonatomic, assign, getter=isNormalHeaderRefresh) BOOL normalHeaderRefresh;
+    
 /*
     是否需要底部刷新空间 默认为YES
  */

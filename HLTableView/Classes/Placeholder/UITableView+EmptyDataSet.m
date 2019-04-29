@@ -221,9 +221,11 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
         attr = [[NSAttributedString alloc] initWithString:@" "];
     }
 
-    [self.emptyManager.continuerDic setObject:[self convertNull:[UIImage imageNamed:[self convertNull:imageNamed]]]
-                                       forKey:fetchKeyFormKey(kImageNameKey, emptyState,fetchDataSourceKey(self.dataSource))];
-    
+    if ([[self convertNull:[UIImage imageNamed:[self convertNull:imageNamed]]] isKindOfClass:[UIImage class]]) {
+        [self.emptyManager.continuerDic setObject:[UIImage imageNamed:imageNamed]
+                                           forKey:fetchKeyFormKey(kImageNameKey, emptyState,fetchDataSourceKey(self.dataSource))];
+    }
+
     [self.emptyManager.continuerDic setObject:attr forKey:fetchKeyFormKey(kButtonTitleKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
 

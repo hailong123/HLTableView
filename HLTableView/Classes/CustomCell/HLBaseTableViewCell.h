@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  步骤2:进行视图的创建
  */
 
-- (void)layoutUI;
+- (void)buildView;
 
 /*
  步骤3:进行数据填充
