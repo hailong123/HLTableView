@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   s.source_files        = 'HLTableView/Classes/**/*'
   s.public_header_files = 'HLTableView/Classes/**/*.h'
 
-  s.resources           = 'HLTableView/Assets/*'
+  s.resource           = 'HLTableView/Assets/*'
 
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
