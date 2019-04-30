@@ -220,31 +220,29 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    HLCellHeaderAndFooterDataAdapter *dataAdpter = nil;
+    HLCellHeaderAndFooterDataAdapter *dataAdpter = [self cellHeaderDataAdapterWithSection:section];
     
-    if ([self hasMoreSection]) {
+    if (dataAdpter && dataAdpter.headerHeight > 0) {
+
+        HLCustomTableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
+        headerView.data     = dataAdpter.data;
+        headerView.section  = section;
+        headerView.delegate = dataAdpter.dataAdapterDelegate;
+        [headerView loadContent];
         
-        dataAdpter = [self cellHeaderDataAdapterWithSection:section];
-        HLCustomTableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
-        footerView.data     = dataAdpter.data;
-        footerView.section  = section;
-        footerView.delegate = dataAdpter.dataAdapterDelegate;
-        [footerView loadContent];
-        
-        return footerView;
+        return headerView;
         
     }
-
+    
     return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    HLCellHeaderAndFooterDataAdapter *dataAdpter = nil;
+    HLCellHeaderAndFooterDataAdapter *dataAdpter = [self cellHeaderDataAdapterWithSection:section];
     
-    if ([self hasMoreSection]) {
-
-        dataAdpter = [self cellFooterDataAdapterWithSection:section];
+    if (dataAdpter && dataAdpter.footerHeight > 0) {
+        
         HLCustomTableViewHeaderFooterView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:dataAdpter.reuseIdentifier];
         footerView.data     = dataAdpter.data;
         footerView.section  = section;
@@ -260,12 +258,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    HLCellHeaderAndFooterDataAdapter *dataAdapter = nil;
+    HLCellHeaderAndFooterDataAdapter *dataAdapter = [self cellFooterDataAdapterWithSection:section];
     
-    if ([self hasMoreSection]) {
+    if (dataAdapter && dataAdapter.footerHeight > 0) {
         
-        dataAdapter = [self cellFooterDataAdapterWithSection:section];
-
         return dataAdapter.footerHeight;
     }
     
@@ -274,12 +270,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    HLCellHeaderAndFooterDataAdapter *dataAdapter = nil;
+    HLCellHeaderAndFooterDataAdapter *dataAdapter = [self cellHeaderDataAdapterWithSection:section];
     
-    if ([self hasMoreSection]) {
-        
-        dataAdapter = [self cellHeaderDataAdapterWithSection:section];
-        
+    if (dataAdapter && dataAdapter.headerHeight > 0) {
         return dataAdapter.headerHeight;
     }
     

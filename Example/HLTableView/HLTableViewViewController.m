@@ -66,9 +66,9 @@ HLTwoDemoTableViewCellDelegate
                                                             adapterDelegate:self];
     
     //!!!!:多Section模式
-    HLCellHeaderAndFooterDataAdapter *hfAdapterA = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLHeaderView class]) delegate:self height:35 data:@"打点滴" type:AdapterHeightTypeHeader];
+    HLCellHeaderAndFooterDataAdapter *hfAdapterA = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLHeaderView class]) delegate:self height:135 data:@"打点滴" type:AdapterHeightTypeHeader];
     
-    HLCellHeaderAndFooterDataAdapter *hfAdapterB = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLFooterView class]) delegate:self height:35 data:@"打发打发打发斯蒂芬" type:AdapterHeightTypeFooter];
+    HLCellHeaderAndFooterDataAdapter *hfAdapterB = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLFooterView class]) delegate:self height:135 data:@"打发打发打发斯蒂芬" type:AdapterHeightTypeFooter];
     
     HLCellDataAdapter *sectionAdapter1 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]
                                                                               headerAdapter:hfAdapterA
@@ -82,10 +82,20 @@ HLTwoDemoTableViewCellDelegate
                                                                               headerAdapter:nil
                                                                               footreAdapter:hfAdapterB];
     
+    dataA.headerAdapter = hfAdapterA;
+    
     //无section模式
+//    [self.adapters addObject:dataB];
     [self.adapters addObject:dataA];
     [self.adapters addObject:dataB];
-    [self.adapters addObject:dataA];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
     
     //多section模式
 //    [self.adapters addObject:sectionAdapter1];
@@ -99,9 +109,9 @@ HLTwoDemoTableViewCellDelegate
     [self.tableView reloadData];
 }
 
-- (void)configTableViewStyle {
-    self.tableViewStyle = UITableViewStylePlain;
-}
+//- (void)configTableViewStyle {
+//    self.tableViewStyle = UITableViewStylePlain;
+//}
 
 #pragma mark
 - (void)refreshData {
@@ -119,6 +129,7 @@ HLTwoDemoTableViewCellDelegate
 }
 
 - (void)clickEmptyEvent {
+    
     NSLog(@"*****点击空数据刷新*******");
     
     //    HLTableViewViewController *tableVC = [[HLTableViewViewController alloc] init];
