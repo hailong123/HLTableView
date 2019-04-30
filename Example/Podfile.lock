@@ -1,6 +1,6 @@
 PODS:
   - DZNEmptyDataSet (1.8.1)
-  - HLTableView (1.0.0):
+  - HLTableView (1.0.1):
     - DZNEmptyDataSet
     - Masonry
     - MJRefresh
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  HLTableView: 6387d696ffab4035ea725c0fa739b421fa27ab90
+  HLTableView: 469bd7b0ea8709a5f1c54b14e75257380d25e5e7
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
 

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HLTableView'
-  s.version          = '1.0.1'
+  s.version          = '1.0.0'
   s.summary          = '这是一个简单的UITableView封装'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/hailong123/HLTableView.git', :tag => s.version.to_s }
 
   s.prefix_header_file    = 'HLTableView/Classes/HLTableViewPrefixHeader.pch'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 
   s.source_files        = 'HLTableView/Classes/**/*'
   s.public_header_files = 'HLTableView/Classes/**/*.h'
