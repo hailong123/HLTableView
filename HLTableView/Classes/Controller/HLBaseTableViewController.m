@@ -15,6 +15,22 @@
 #import "HLBaseTableViewController+EmptyProtocl.h"
 #import "UITableViewHeaderFooterView+DataAdapter.h"
 
+NSString * const NetworkErrorDesKey        = @"NetworkErrorDesKey";
+NSString * const NetworkErrorTitleKey      = @"NetworkErrorTitleKey";
+NSString * const NetworkErrorDesFontKey    = @"NetworkErrorDesFontKey";
+NSString * const NetworkErrorDesColorKey   = @"NetworkErrorDesColorKey";
+NSString * const NetworkErrorTitleFontKey  = @"NetworkErrorFontSizeKey";
+NSString * const NetworkErrorTitleColorKey = @"NetworkErrorTitleColorKey";
+NSString * const NetworkErrorImageNamedKey = @"NetworkErrorImageNamedKey";
+
+NSString * const NoDataDesKey        = @"NoDataDesKey";
+NSString * const NoDataTitleKey      = @"NoDataTitleKey";
+NSString * const NoDataDesFontKey    = @"NoDataDesFontKey";
+NSString * const NoDataDesColorKey   = @"NoDataDesColorKey";
+NSString * const NoDataTitleFontKey  = @"NoDataFontSizeKey";
+NSString * const NoDataTitleColorKey = @"NoDataTitleColorKey";
+NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
+
 @interface HLBaseTableViewController ()
 <
     HLEmptyTableManagerDelegate
@@ -36,6 +52,20 @@
     [self prapareTableViewUI];
 
     [self replaceRefresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    if (!self.customEmptyView) {
+        
+        [self noNetworkConfig];
+        
+        [self noDataConfig];
+    } else {
+        
+    }
 }
 
 #pragma mark - Private Method
@@ -70,22 +100,37 @@
     }];
 }
 
+- (void)configEmptyView {
+    
+}
+
+
 - (void)noNetworkConfig {
-    [self.tableView configurationWithImageNamed:[self normalImageNamedWithoutNetwork:YES]
-                                          title:[self normalDesWithoutNetwork:YES]
+    [self.tableView configurationWithImageNamed:[self imageNamedConfigWithoutNetwork:YES]
+                                          title:[self titleConfigWithoutNetwork:YES]
                                      attributes:@{
-                                                  NSForegroundColorAttributeName:[self normalColorWithoutNetwork:YES],
-                                                  NSFontAttributeName:[self normalFontWithoutNetwork:YES]
+                                                  NSForegroundColorAttributeName:[self titleColorConfigWithoutNetwork:YES],
+                                                  NSFontAttributeName:[self titleFontConfigWithoutNetwork:YES]
+                                                  }
+                                    description:[self desConfigWithoutNetwork:YES]
+                                  desAttributes:@{
+                                                  NSForegroundColorAttributeName:[self desColorConfigWithoutNetwork:YES],
+                                                  NSFontAttributeName:[self desFontConfigWithoutNetwork:YES]
                                                   }
                                           state:HLEmptyTableManagerStateNoNetwork];
 }
 
 - (void)noDataConfig {
-    [self.tableView configurationWithImageNamed:[self normalImageNamedWithoutNetwork:NO]
-                                          title:[self normalDesWithoutNetwork:NO]
+    [self.tableView configurationWithImageNamed:[self imageNamedConfigWithoutNetwork:NO]
+                                          title:[self titleConfigWithoutNetwork:NO]
                                      attributes:@{
-                                                  NSForegroundColorAttributeName:[self normalColorWithoutNetwork:NO],
-                                                  NSFontAttributeName:[self normalFontWithoutNetwork:NO]
+                                                  NSForegroundColorAttributeName:[self titleColorConfigWithoutNetwork:NO],
+                                                  NSFontAttributeName:[self titleFontConfigWithoutNetwork:NO]
+                                                  }
+                                    description:[self desConfigWithoutNetwork:NO]
+                                  desAttributes:@{
+                                                  NSForegroundColorAttributeName:[self desColorConfigWithoutNetwork:NO],
+                                                  NSFontAttributeName:[self desFontConfigWithoutNetwork:NO]
                                                   }
                                           state:HLEmptyTableManagerStateNoData];
 }

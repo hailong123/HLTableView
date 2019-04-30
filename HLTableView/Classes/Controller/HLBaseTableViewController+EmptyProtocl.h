@@ -11,10 +11,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HLBaseTableViewController (EmptyProtocl)
 
-- (UIFont *)normalFontWithoutNetwork:(BOOL)network;
-- (NSString *)normalDesWithoutNetwork:(BOOL)network;
-- (UIColor *)normalColorWithoutNetwork:(BOOL)network;
-- (NSString *)normalImageNamedWithoutNetwork:(BOOL)network;
+- (UIFont *)desFontConfigWithoutNetwork:(BOOL)network;
+- (UIFont *)titleFontConfigWithoutNetwork:(BOOL)network;
+
+- (NSString *)desConfigWithoutNetwork:(BOOL)network;
+- (NSString *)titleConfigWithoutNetwork:(BOOL)network;
+
+- (NSString *)imageNamedConfigWithoutNetwork:(BOOL)network;
+
+- (UIColor *)desColorConfigWithoutNetwork:(BOOL)network;
+- (UIColor *)titleColorConfigWithoutNetwork:(BOOL)network;
+
 
 @end
 

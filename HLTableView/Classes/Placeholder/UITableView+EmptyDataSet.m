@@ -147,6 +147,12 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
     }
 }
 
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapView:(UIView *)view {
+    if (self.emptyManagerDelegate && [self.emptyManagerDelegate respondsToSelector:@selector(touchEmptyTableManager:)]) {
+        [self.emptyManagerDelegate touchEmptyTableManager:self];
+    }
+}
+
 - (NSMutableDictionary *)continuerDic {
     
     if (!_continuerDic) {
@@ -179,8 +185,6 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
                  desAttributes:(NSDictionary<NSAttributedStringKey,id> *)desAttributes
                          state:(HLEmptyTableManagerState)emptyState {
     
-    self.emptyManager.emptyState  = emptyState;
-    
     NSAttributedString *desAttr   = [[NSAttributedString alloc] initWithString:des attributes:desAttributes];
     NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title attributes:titleAttributes];
     
@@ -196,8 +200,6 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
     
     NSParameterAssert(backgroundColor);
     
-    self.emptyManager.emptyState  = emptyState;
-
     [self.emptyManager.continuerDic setObject:backgroundColor
                                        forKey:fetchKeyFormKey(kBackgroundColorKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
@@ -205,14 +207,15 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
 - (void)configurationWithImageNamed:(NSString *)imageNamed
                               title:(nullable NSString *)title
                          attributes:(nullable NSDictionary<NSAttributedStringKey,id> *)attributes
+                        description:(nullable NSString *)des
+                      desAttributes:(nullable NSDictionary<NSAttributedStringKey,id> *)desAttributes
                               state:(HLEmptyTableManagerState)emptyState {
     
     NSParameterAssert(imageNamed);
     
     NSAttributedString *attr;
+    NSAttributedString *desAttr;
     
-    self.emptyManager.emptyState  = emptyState;
-
     if (title.length > 0) {
         self.emptyManager.allowTouch = YES;
         attr = [[NSAttributedString alloc] initWithString:title attributes:attributes];
@@ -220,13 +223,21 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
         self.emptyManager.allowTouch = NO;
         attr = [[NSAttributedString alloc] initWithString:@" "];
     }
-
+    
+    if (des.length > 0) {
+        desAttr = [[NSAttributedString alloc] initWithString:des attributes:desAttributes];
+    }
+    
     if ([[self convertNull:[UIImage imageNamed:[self convertNull:imageNamed]]] isKindOfClass:[UIImage class]]) {
         [self.emptyManager.continuerDic setObject:[UIImage imageNamed:imageNamed]
                                            forKey:fetchKeyFormKey(kImageNameKey, emptyState,fetchDataSourceKey(self.dataSource))];
     }
-
-    [self.emptyManager.continuerDic setObject:attr forKey:fetchKeyFormKey(kButtonTitleKey, emptyState,fetchDataSourceKey(self.dataSource))];
+    
+    [self.emptyManager.continuerDic setObject:attr
+                                       forKey:fetchKeyFormKey(kButtonTitleKey, emptyState,fetchDataSourceKey(self.dataSource))];
+    
+    [self.emptyManager.continuerDic setObject:[self convertNull:desAttr]
+                                       forKey:fetchKeyFormKey(kLabelDescriptionKey, emptyState,fetchDataSourceKey(self.dataSource))];
 }
 
 - (NSString *)convertNull:(id)object {
@@ -257,10 +268,10 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
 
 - (HLEmptyTableManager *)emptyManager {
     
-   HLEmptyTableManager *empty = [self weakEmptyManager];
+    HLEmptyTableManager *empty = [self weakEmptyManager];
     
     if (!empty) {
-
+        
         empty = [HLEmptyTableManager shareInstance];
         
         self.emptyManager         = empty;
@@ -272,8 +283,9 @@ static inline NSString *fetchDataSourceKey(id <UITableViewDataSource>dataSource)
     if (empty.tableView != self) {
         empty.tableView = self;
     }
-
+    
     return empty;
 }
 
 @end
+
