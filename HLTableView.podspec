@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   s.source_files        = 'HLTableView/Classes/**/*'
   s.public_header_files = 'HLTableView/Classes/**/*.h'
 
-  s.resources           = ['HLTableView/Assets/*']
+  # s.resources           = ['HLTableView/Assets/*']
 
   s.dependency 'Masonry'
   s.dependency 'MJRefresh'
