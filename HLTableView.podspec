@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HLTableView'
-  s.version          = '1.0.0'
+  s.version          = '2.0.0'
   s.summary          = '这是一个简单的UITableView封装'
 
 # This description is used to generate tags and improve search results.
@@ -36,8 +36,8 @@ Pod::Spec.new do |s|
 
   s.resources           = ['HLTableView/Assets/*']
 
-  s.dependency 'MJRefresh'
-  s.dependency 'DZNEmptyDataSet'
   s.dependency 'Masonry'
+  s.dependency 'MJRefresh'
+  s.dependency 'UITableView+FDTemplateLayoutCell'
   
 end

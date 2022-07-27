@@ -23,21 +23,6 @@
     return cellDataAdapter;
 }
 
-+ (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                      cellDataAdapterDelegate:(nonnull id<NSObject>)adapterDelegate {
-    
-    HLCellDataAdapter *cellDataAdapter  = [[[self class] alloc] init];
-    
-    cellDataAdapter.data                    = data;
-    cellDataAdapter.cellHeight              = cellHeight;
-    cellDataAdapter.cellReuseIdentifier     = reuseIdentifiers;
-    cellDataAdapter.cellDataAdapterDelegate = adapterDelegate;
-    
-    return cellDataAdapter;
-}
-
 + (HLCellDataAdapter *)cellDataAdapterWithAdapterArray:(NSArray <HLCellDataAdapter *>*)adapterArray {
     
     NSAssert([adapterArray isKindOfClass:[NSArray class]], @"必须为数组类型");

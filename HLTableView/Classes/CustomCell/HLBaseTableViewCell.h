@@ -55,36 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadContent;
 
-/*
-    @param:data cell对应的数据
-    @return 返回cell的高度,此方法是有cell自身进行计算并返回
- */
-
-+ (CGFloat)cellHeightWithData:(nullable id)data;
-
-#pragma mark Userful Methord
-/*
-    @param height    需要更新的高度
-    @param animated  是否需要动画
- */
-
-- (void)updateWithNewCellHeight:(CGFloat)height animated:(BOOL)animated;
-
 #pragma mark Constructor Method
 
 /*
-    @param data             填充的数据
-    @param cellHeight       设置高度
-    @param adapterDelegate  设置代理
- 
-    @return HLCellDataAdapter
- */
-
-+ (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
-                                cellHeight:(CGFloat)cellHeight
-                           adapterDelegate:(nullable id<NSObject>)adapterDelegate;
-
-/*
  @param data             填充的数据
  @param adapterDelegate  设置代理
  
@@ -93,20 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (HLCellDataAdapter *)dataAdapterWithData:(nullable id)data
                            adapterDelegate:(nullable id<NSObject>)adapterDelegate;
-
-
-
-/*
- 必须实现 cellHeightWithData 方法来计算高度 由cell 自身调用 cellHeightWithData 方法来获取高度,不需外部传入
- 
- @param data             填充的数据
- @param adapterDelegate  设置代理
- 
- @return HLCellDataAdapter
- 
- */
-+ (HLCellDataAdapter *)fixedHeightTypeDataAdapterWithData:(nullable id)data
-                                          adapterDelegate:(nullable id<NSObject>)adapterDelegate;
 
 #pragma mark Load Content
 /*

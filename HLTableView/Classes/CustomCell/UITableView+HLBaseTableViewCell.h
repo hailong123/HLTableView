@@ -37,14 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                            delegate:(nullable id<NSObject>)delegate
                                                           indexPath:(NSIndexPath *)indexPath;
 
-/*
-    @param adapter cell绑定的模型
- 
-    @return cell的高度
- */
-
-- (CGFloat)cellHeightWithAdapter:(HLCellDataAdapter *)adapter;
-
 @end
 
 NS_ASSUME_NONNULL_END

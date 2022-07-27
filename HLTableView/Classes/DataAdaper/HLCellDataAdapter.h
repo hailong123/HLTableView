@@ -35,31 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 //是否支持多 section 模式
 @property (nonatomic, strong) NSMutableArray<HLCellDataAdapter *> *sectionArray;
 
-/*
-    cellHeight cell的高度
- */
-
-@property (nonatomic, assign) CGFloat cellHeight;
-
 //头视图模型
 @property (nonatomic, strong) HLCellHeaderAndFooterDataAdapter *headerAdapter;
 
 //尾视图模型
 @property (nonatomic, strong) HLCellHeaderAndFooterDataAdapter *footerAdapter;
-
-/*
-    @param  reuseIdentifiers  设置标识符
-    @param  data              设置数据
-    @param  cellHeight        设置高度
-    @param  adapterDelegate   设置代理
- 
-    @return  HLCellDataAdapter  cell绑定的模型
-*/
-
-+ (HLCellDataAdapter *)cellDataAdapterWithCellReuseIdentifier:(NSString *)reuseIdentifiers
-                                                         data:(nullable id)data
-                                                   cellHeight:(CGFloat)cellHeight
-                                      cellDataAdapterDelegate:(id<NSObject>)adapterDelegate;
 
 /*
  @param  reuseIdentifiers  设置标识符

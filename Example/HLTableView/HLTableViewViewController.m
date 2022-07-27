@@ -47,56 +47,59 @@ HLTwoDemoTableViewCellDelegate
     
     self.demoModel = [[HLDemoModel alloc] init];
     self.demoModel.nameStr      = @"测试测试";
-    self.demoModel.desStr       = @"描述";
+    self.demoModel.desStr       =  @"ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打";
     
     self.demoModelTwo = [[HLDemoModel alloc] init];
     self.demoModelTwo.nameStr      = @"测试测试2";
-    self.demoModelTwo.desStr       = @"描述2";
+    self.demoModelTwo.desStr       = @"发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发生发顺丰打发斯蒂芬ad法师打发撒打发打发发";
     
     self.demoModelThree = [[HLDemoModel alloc] init];
     self.demoModelThree.nameStr      = @"测试测试3";
-    self.demoModelThree.desStr       = @"描述3";
+    self.demoModelThree.desStr       = @"发";
     
     //普通模式
-    HLCellDataAdapter *dataA = [HLDemoTableViewCell fixedHeightTypeDataAdapterWithData:@(14)
-                                                                       adapterDelegate:self];
+    HLCellDataAdapter *dataA = [HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelTwo
+                                                        adapterDelegate:self];
     
     HLCellDataAdapter *dataB =  [HLTwoDemoTableViewCell dataAdapterWithData:self.demoModel
-                                                                 cellHeight:160
+                                                            adapterDelegate:self];
+    
+    HLCellDataAdapter *dataC =  [HLTwoDemoTableViewCell dataAdapterWithData:self.demoModelThree
                                                             adapterDelegate:self];
     
     //!!!!:多Section模式
-    HLCellHeaderAndFooterDataAdapter *hfAdapterA = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLHeaderView class]) delegate:self height:135 data:@"打点滴" type:AdapterHeightTypeHeader];
+    HLCellHeaderAndFooterDataAdapter *hfAdapterA = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLHeaderView class]) delegate:self height:185 data:@"打点滴" type:AdapterHeightTypeHeader];
+//
+    HLCellHeaderAndFooterDataAdapter *hfAdapterB = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLFooterView class]) delegate:self height:185 data:@"打发打发打发斯蒂芬" type:AdapterHeightTypeFooter];
     
-    HLCellHeaderAndFooterDataAdapter *hfAdapterB = [HLCellHeaderAndFooterDataAdapter cellHeaderAndFooterDataAdapterWithIdentifier:NSStringFromClass([HLFooterView class]) delegate:self height:135 data:@"打发打发打发斯蒂芬" type:AdapterHeightTypeFooter];
-    
-    HLCellDataAdapter *sectionAdapter1 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]
-                                                                              headerAdapter:hfAdapterA
-                                                                              footreAdapter:hfAdapterB];
-    HLCellDataAdapter *sectionAdapter2 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
-    HLCellDataAdapter *sectionAdapter3 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
-    HLCellDataAdapter *sectionAdapter4 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
-    HLCellDataAdapter *sectionAdapter5 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
-    HLCellDataAdapter *sectionAdapter6 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]];
-    HLCellDataAdapter *sectionAdapter7 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB]
-                                                                              headerAdapter:nil
-                                                                              footreAdapter:hfAdapterB];
-    
-    dataA.headerAdapter = hfAdapterA;
+//    HLCellDataAdapter *sectionAdapter1 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataC]
+//                                                                              headerAdapter:hfAdapterA
+//                                                                              footreAdapter:hfAdapterB];
+//    HLCellDataAdapter *sectionAdapter2 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataA,dataB,dataA,dataB,dataA,dataB,dataA,dataB,dataA,dataB,dataA,dataB] headerAdapter:hfAdapterA footreAdapter:hfAdapterB];
+//    HLCellDataAdapter *sectionAdapter3 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataB,dataB] headerAdapter:nil footreAdapter:hfAdapterB];
+//    HLCellDataAdapter *sectionAdapter4 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataB,dataB,dataB,dataB,dataB,dataB,dataB]];
+//    HLCellDataAdapter *sectionAdapter5 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataB,dataB,dataB,dataB,dataB,dataB] headerAdapter:hfAdapterA footreAdapter:hfAdapterB];
+//    HLCellDataAdapter *sectionAdapter6 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataB,dataB,dataB,dataB,dataB,dataB,dataB,dataB,dataB] headerAdapter:hfAdapterA footreAdapter:hfAdapterB];
+//    HLCellDataAdapter *sectionAdapter7 = [HLCellDataAdapter cellDataAdapterWithAdapterArray:@[dataA,dataB,dataB,dataB,dataB,dataB] headerAdapter:nil footreAdapter:hfAdapterB];
+//                                                                              headerAdapter:hfAdapterA
+//                                                                              footreAdapter:hfAdapterB];
+//
+//    dataA.headerAdapter = hfAdapterA;
     
     //无section模式
-//    [self.adapters addObject:dataB];
+    [self.adapters addObject:dataB];
     [self.adapters addObject:dataA];
     [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    [self.adapters addObject:dataB];
-    
+    [self.adapters addObject:dataC];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//    [self.adapters addObject:dataB];
+//
     //多section模式
 //    [self.adapters addObject:sectionAdapter1];
 //    [self.adapters addObject:sectionAdapter2];
@@ -106,7 +109,7 @@ HLTwoDemoTableViewCellDelegate
 //    [self.adapters addObject:sectionAdapter6];
 //    [self.adapters addObject:sectionAdapter7];
     
-    [self.tableView reloadData];
+    [self reloadTableView];
 }
 
 //- (void)configTableViewStyle {
@@ -128,14 +131,6 @@ HLTwoDemoTableViewCellDelegate
     [self stopRefresh];
 }
 
-- (void)clickEmptyEvent {
-    
-    NSLog(@"*****点击空数据刷新*******");
-    
-    //    HLTableViewViewController *tableVC = [[HLTableViewViewController alloc] init];
-    //
-    //    [self presentViewController:tableVC animated:YES completion:nil];
-}
 
 #pragma mark HLTwoDemoTableViewCellDelegate
 - (void)twoDemoTableViewCell:(HLTwoDemoTableViewCell *)cell {

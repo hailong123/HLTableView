@@ -1,31 +1,32 @@
 PODS:
-  - DZNEmptyDataSet (1.8.1)
-  - HLTableView (1.0.1):
-    - DZNEmptyDataSet
+  - HLTableView (2.0.0):
     - Masonry
     - MJRefresh
+    - "UITableView+FDTemplateLayoutCell"
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
+  - "UITableView+FDTemplateLayoutCell (1.6)"
 
 DEPENDENCIES:
   - HLTableView (from `../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - DZNEmptyDataSet
+  https://github.com/CocoaPods/Specs.git:
     - Masonry
     - MJRefresh
+  trunk:
+    - "UITableView+FDTemplateLayoutCell"
 
 EXTERNAL SOURCES:
   HLTableView:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  HLTableView: 469bd7b0ea8709a5f1c54b14e75257380d25e5e7
+  HLTableView: f96331aca12be15254f0215e1f14ba414f9d91be
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
 
 PODFILE CHECKSUM: f068e3cc36f89cfb30366600c7bc66437a9864c5
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.11.2

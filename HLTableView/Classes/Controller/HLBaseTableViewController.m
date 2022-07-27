@@ -8,33 +8,18 @@
 
 #import "HLBaseTableViewController.h"
 
+#import "UITableView+FDTemplateLayoutCell.h"
+
 #import "HLBaseTableViewCell.h"
 #import "UITableView+HLBaseTableViewCell.h"
 
 #import "HLCustomTableViewHeaderFooterView.h"
-#import "HLBaseTableViewController+EmptyProtocl.h"
 #import "UITableViewHeaderFooterView+DataAdapter.h"
 
-NSString * const NetworkErrorDesKey        = @"NetworkErrorDesKey";
-NSString * const NetworkErrorTitleKey      = @"NetworkErrorTitleKey";
-NSString * const NetworkErrorDesFontKey    = @"NetworkErrorDesFontKey";
-NSString * const NetworkErrorDesColorKey   = @"NetworkErrorDesColorKey";
-NSString * const NetworkErrorTitleFontKey  = @"NetworkErrorFontSizeKey";
-NSString * const NetworkErrorTitleColorKey = @"NetworkErrorTitleColorKey";
-NSString * const NetworkErrorImageNamedKey = @"NetworkErrorImageNamedKey";
-
-NSString * const NoDataDesKey        = @"NoDataDesKey";
-NSString * const NoDataTitleKey      = @"NoDataTitleKey";
-NSString * const NoDataDesFontKey    = @"NoDataDesFontKey";
-NSString * const NoDataDesColorKey   = @"NoDataDesColorKey";
-NSString * const NoDataTitleFontKey  = @"NoDataFontSizeKey";
-NSString * const NoDataTitleColorKey = @"NoDataTitleColorKey";
-NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
-
 @interface HLBaseTableViewController ()
-<
-    HLEmptyTableManagerDelegate
->
+
+@property (nonatomic, assign) BOOL moreSection;
+
 @end
 
 @implementation HLBaseTableViewController
@@ -54,23 +39,17 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
     [self replaceRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    if (!self.customEmptyView) {
-        
-        [self noNetworkConfig];
-        
-        [self noDataConfig];
-    } else {
-        
+#pragma mark - Private Method
+- (void)moreSections {
+    for (HLCellDataAdapter *adapter in self.adapters) {
+        if (adapter.sectionArray.count > 0) {
+            _moreSection = YES;
+        }
     }
 }
 
-#pragma mark - Private Method
 - (void)baseTableViewConfig {
-    self.pageNo         = 1;
+    self.pageNo = 1;
 }
 
 - (void)configTableViewStyle {
@@ -78,8 +57,8 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 }
 
 - (void)replaceRefresh {
-    self.footerRefresh       = YES;
-    self.normalHeaderRefresh = YES;
+    self.footerRefresh = YES;
+    self.headerRefresh = YES;
 }
 
 //子类如有不同,可重写此方法
@@ -100,42 +79,15 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
     }];
 }
 
-- (void)configEmptyView {
-    
-}
-
-
-- (void)noNetworkConfig {
-    [self.tableView configurationWithImageNamed:[self imageNamedConfigWithoutNetwork:YES]
-                                          title:[self titleConfigWithoutNetwork:YES]
-                                     attributes:@{
-                                                  NSForegroundColorAttributeName:[self titleColorConfigWithoutNetwork:YES],
-                                                  NSFontAttributeName:[self titleFontConfigWithoutNetwork:YES]
-                                                  }
-                                    description:[self desConfigWithoutNetwork:YES]
-                                  desAttributes:@{
-                                                  NSForegroundColorAttributeName:[self desColorConfigWithoutNetwork:YES],
-                                                  NSFontAttributeName:[self desFontConfigWithoutNetwork:YES]
-                                                  }
-                                          state:HLEmptyTableManagerStateNoNetwork];
-}
-
-- (void)noDataConfig {
-    [self.tableView configurationWithImageNamed:[self imageNamedConfigWithoutNetwork:NO]
-                                          title:[self titleConfigWithoutNetwork:NO]
-                                     attributes:@{
-                                                  NSForegroundColorAttributeName:[self titleColorConfigWithoutNetwork:NO],
-                                                  NSFontAttributeName:[self titleFontConfigWithoutNetwork:NO]
-                                                  }
-                                    description:[self desConfigWithoutNetwork:NO]
-                                  desAttributes:@{
-                                                  NSForegroundColorAttributeName:[self desColorConfigWithoutNetwork:NO],
-                                                  NSFontAttributeName:[self desFontConfigWithoutNetwork:NO]
-                                                  }
-                                          state:HLEmptyTableManagerStateNoData];
-}
-
 #pragma mark - Public Method
+
+- (void)reloadTableView {
+    
+    [self moreSections];
+    
+    [self.tableView reloadData];
+}
+
 - (void)loadMoreData {
     [[NSException exceptionWithName:@"方法调用异常"
                              reason:[NSString stringWithFormat:@"%@-此方法需子类重写",NSStringFromSelector(@selector(loadMoreData))]
@@ -154,10 +106,6 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 }
 
 #pragma mark - HLCellDataAdapter
-- (BOOL)hasMoreSection {
-    HLCellDataAdapter *adapter = self.adapters.firstObject;
-    return adapter.sectionArray.count > 0;
-}
 
 - (NSInteger)fetchCellDataAdapterCount {
     return self.adapters.count;
@@ -168,8 +116,16 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 }
 
 - (HLCellDataAdapter *)cellDataAdapterWithIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.section < self.adapters.count) {
-        return self.adapters[indexPath.section].sectionArray[indexPath.row];
+        
+        HLCellDataAdapter *adapter= self.adapters[indexPath.section];
+        
+        if (adapter.sectionArray.count > 0) {
+            return self.adapters[indexPath.section].sectionArray[indexPath.row];;
+        }
+        
+        return adapter;
     }
     
     return nil;
@@ -178,28 +134,24 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 #pragma mark - HLCellHeaderAndFooterDataAdapter
 
 - (HLCellHeaderAndFooterDataAdapter *)cellFooterDataAdapterWithSection:(NSInteger)section {
-    if ([self hasMoreSection]) {
-        if (section < self.adapters[section]) {
-            return self.adapters[section].footerAdapter;
-        }
-    } else {
-        if (section < self.adapters.count) {
-            return self.adapters[section].footerAdapter;
-        }
+    
+    if (section < self.adapters.count) {
+        
+        HLCellDataAdapter *adapter = self.adapters[section];
+
+        return adapter.footerAdapter;
     }
     
     return nil;
 }
 
 - (HLCellHeaderAndFooterDataAdapter *)cellHeaderDataAdapterWithSection:(NSInteger)section {
-    if ([self hasMoreSection]) {
-        if (section < self.adapters[section]) {
-            return self.adapters[section].headerAdapter;
-        }
-    } else {
-        if (section < self.adapters.count) {
-            return self.adapters[section].headerAdapter;
-        }
+    
+    if (section < self.adapters.count) {
+        
+        HLCellDataAdapter *adapter = self.adapters[section];
+
+        return adapter.headerAdapter;
     }
     
     return nil;
@@ -207,26 +159,24 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 
 #pragma mark - Delegate
 
-#pragma mark HLEmptyTableManagerDelegate
-- (void)touchEmptyTableManager:(HLEmptyTableManager *)emptyTableManager {
-    [[NSException exceptionWithName:@"方法调用异常"
-                             reason:[NSString stringWithFormat:@"%@-此方法需子类重写",NSStringFromSelector(@selector(touchEmptyTableManager:))]
-                           userInfo:nil] raise];
-}
-
 #pragma mark UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    if ([self hasMoreSection]) {
+    if (_moreSection) {
         return self.adapters.count;
     }
     
-    return 1;
+    if (self.adapters.count > 0) {
+        return 1;
+    }
+    
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self hasMoreSection]) {
-        return [self fetchSubCellDataAdapterCountWithIndexPath:section];
+    
+    if (_moreSection) {
+       return self.adapters[section].sectionArray.count;
     }
     
     return self.adapters.count;
@@ -234,23 +184,29 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self hasMoreSection]) {
-        
-        HLCellDataAdapter *cellAdapter = [self cellDataAdapterWithIndexPath:indexPath];
-        
-        return cellAdapter.cellHeight;
+    HLCellDataAdapter *adapter;
+    
+    if (_moreSection) {
+        adapter = self.adapters[indexPath.section].sectionArray[indexPath.row];
+    } else {
+        adapter = self.adapters[indexPath.row];
     }
     
-    HLCellDataAdapter *cellAdapter = self.adapters[indexPath.row];
-    
-    return cellAdapter.cellHeight;
+    return [tableView fd_heightForCellWithIdentifier:adapter.cellReuseIdentifier
+                                    cacheByIndexPath:indexPath
+                                       configuration:^(HLBaseTableViewCell *cell) {
+        [cell loadContentWithAdapter:adapter
+                           indexPath:indexPath
+                            delegate:adapter.cellDataAdapterDelegate
+                           tableView:tableView];
+    }];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     HLCellDataAdapter *cellAdapter = nil;
     
-    if ([self hasMoreSection]) {
+    if (_moreSection) {
         cellAdapter = [self cellDataAdapterWithIndexPath:indexPath];
     } else {
         cellAdapter = self.adapters[indexPath.row];
@@ -284,7 +240,7 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    HLCellHeaderAndFooterDataAdapter *dataAdpter = [self cellHeaderDataAdapterWithSection:section];
+    HLCellHeaderAndFooterDataAdapter *dataAdpter = [self cellFooterDataAdapterWithSection:section];
     
     if (dataAdpter && dataAdpter.footerHeight > 0) {
         
@@ -343,10 +299,6 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
         _tableView.tableFooterView = [UIView new];
     }
     
-    if (_tableView.emptyManager.emptyManagerDelegate != self) {
-        _tableView.emptyManager.emptyManagerDelegate = self;
-    }
-    
     return _tableView;
 }
 
@@ -359,6 +311,7 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
     return _adapters;
 }
 
+
 - (void)setFooterRefresh:(BOOL)footerRefresh {
     if (footerRefresh) {
         if (!self.tableView.mj_footer) {
@@ -369,8 +322,8 @@ NSString * const NoDataImageNamedKey = @"NoDataImageNamedKey";
     }
 }
 
-- (void)setNormalHeaderRefresh:(BOOL)normalHeaderRefresh {
-    if (normalHeaderRefresh) {
+- (void)setHeaderRefresh:(BOOL)headerRefresh {
+    if (headerRefresh) {
         if (!self.tableView.mj_header) {
             self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
         }

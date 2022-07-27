@@ -7,6 +7,7 @@
 //
 
 #import "HLHeaderView.h"
+#import <Masonry/Masonry.h>
 
 @interface HLHeaderView ()
 
@@ -25,9 +26,20 @@
 
 - (void)buildSubview {
     //标题
-    self.lbl.frame = CGRectMake(0, 0, 250, 35);
+    [self.lbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@15);
+        make.left.equalTo(@15);
+        make.height.equalTo(@30);
+        make.width.equalTo(@100);
+    }];
+    
     //背景
-    self.bgView.frame = CGRectMake(260, 0, 100, 35);
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@100);
+        make.height.equalTo(@100);
+        make.left.equalTo(self.lbl);
+        make.top.equalTo(self.lbl.mas_bottom).offset(15);
+    }];
 }
 
 - (void)loadContent {

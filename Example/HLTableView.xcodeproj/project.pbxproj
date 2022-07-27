@@ -238,7 +238,6 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				2652E00A72AA4DE72EC7BFCF /* [CP] Embed Pods Frameworks */,
-				50588AB1B3E1399AAAC9A882 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,7 +278,7 @@
 				ORGANIZATIONNAME = "771145867@qq.com";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 255T83HNNK;
+						DevelopmentTeam = PF3BSY7RH3;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -291,6 +290,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -335,43 +335,19 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		50588AB1B3E1399AAAC9A882 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-resources.sh",
-				"${PODS_ROOT}/../../HLTableView/Assets/default_pic@2x.png",
-				"${PODS_ROOT}/../../HLTableView/Assets/default_pic@3x.png",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/default_pic@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/default_pic@3x.png",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HLTableView_Example/Pods-HLTableView_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		83319E2A254AF5DFD7D5D947 /* [CP] Check Pods Manifest.lock */ = {
@@ -553,7 +529,7 @@
 			baseConfigurationReference = ACCF88A4392CBAE09B0219AB /* Pods-HLTableView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 255T83HNNK;
+				DEVELOPMENT_TEAM = PF3BSY7RH3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HLTableView/HLTableView-Prefix.pch";
 				INFOPLIST_FILE = "HLTableView/HLTableView-Info.plist";
@@ -570,7 +546,7 @@
 			baseConfigurationReference = B40DB333ABB90FD47DF92489 /* Pods-HLTableView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 255T83HNNK;
+				DEVELOPMENT_TEAM = PF3BSY7RH3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HLTableView/HLTableView-Prefix.pch";
 				INFOPLIST_FILE = "HLTableView/HLTableView-Info.plist";

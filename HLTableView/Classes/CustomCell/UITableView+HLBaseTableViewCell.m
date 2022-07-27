@@ -40,8 +40,4 @@
     return cell;
 }
 
-- (CGFloat)cellHeightWithAdapter:(HLCellDataAdapter *)adapter {
-    return adapter.cellHeight;
-}
-
 @end
